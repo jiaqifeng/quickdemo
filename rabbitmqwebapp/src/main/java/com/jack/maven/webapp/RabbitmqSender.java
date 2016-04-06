@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.concurrent.TimeoutException;
- 
+
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RabbitmqSender extends HttpServlet{
   private final static String QUEUE_NAME = "hello";
@@ -29,7 +33,8 @@ public class RabbitmqSender extends HttpServlet{
 	  Channel channel = connection.createChannel();
 	  channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 	  message = "Hello RabbitMQ World";
-	  channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+	  AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
+	  channel.basicPublish("", QUEUE_NAME, builder.appId("test").build(), message.getBytes());
 	  System.out.println(" [x] Sent '" + message + "'");
 	  channel.close();
 	  connection.close();

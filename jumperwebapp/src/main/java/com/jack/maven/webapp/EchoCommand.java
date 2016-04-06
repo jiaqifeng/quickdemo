@@ -1,5 +1,9 @@
 package com.jack.maven.webapp;
 
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandProperties;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -7,21 +11,24 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 
-import javax.servlet.*;
-import java.io.*;
+import java.io.IOException;
 
-public class Jumper implements Servlet {
-    public void init(ServletConfig pa) throws ServletException {
-        System.out.println("init");
+/**
+ * Created by Administrator on 2016/3/2.
+ */
+public class EchoCommand extends HystrixCommand<String> {
+    private final String _name;
+
+    public EchoCommand(String name)
+    {
+        super(HystrixCommandGroupKey.Factory.asKey("EchoService"));
+        _name = new String(name);
     }
-    public ServletConfig getServletConfig() {
-        return null;
-    }
-    public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
+
+    @Override
+    protected String run() {
         String url="http://localhost:8099/echo-websvr/hello";
         String loginEntityContent="could not get "+url;
-
-        System.out.println("service it");
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -38,13 +45,7 @@ public class Jumper implements Servlet {
         } catch (IOException io) {
             System.out.println("got exception: "+io);
         }
-        PrintWriter pw=resp.getWriter();
-        pw.println(loginEntityContent);
-    }
-    public String getServletInfo() {
-        return "";
-    }
-    public void destroy() {
-        System.out.println("destroy!");
+
+        return loginEntityContent;
     }
 }
