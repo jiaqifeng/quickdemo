@@ -19,6 +19,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>jdkhttp</servlet-name>
+    <servlet-class>com.jack.maven.webapp.JdkHttp</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>jdkhttp</servlet-name>
+    <url-pattern>/jdkhttp</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>hystrixjumper</servlet-name>
     <servlet-class>com.jack.maven.webapp.HystrixJumper</servlet-class>
   </servlet>

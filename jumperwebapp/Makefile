@@ -14,6 +14,9 @@ rab:
 curl:
 	curl http://localhost:8098/jumper-webapp/jumper
 
+c2:
+	curl http://localhost:8098/jumper-webapp/jdkhttp
+
 stop:
 	kill `cat tomcat.pid`
 	-rm tomcat.pid

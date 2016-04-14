@@ -5,6 +5,10 @@ import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ public class PinpointConsumer extends Thread
 {
     private final ConsumerConnector consumer;
     private final String topic;
+    ConsumerIterator<Integer, String> it=null;
 
     public PinpointConsumer(String topic)
     {
@@ -46,15 +51,52 @@ public class PinpointConsumer extends Thread
         IntegerDecoder integerDecoder=new IntegerDecoder();
         Map<String, List<KafkaStream<Integer, String>>> consumerMap = consumer.createMessageStreams(topicCountMap, integerDecoder, pinpointDecoder);
         KafkaStream<Integer, String> stream =  consumerMap.get(topic).get(0);
-        ConsumerIterator<Integer, String> it = stream.iterator();
+        it = stream.iterator();
         System.out.println("before while loop");
-        while(it.hasNext()) {
-            String data = it.next().message();
-            System.out.println("got message, length=" + data.length());
-            System.out.println(new String(data));
+        while(handleOnce()) {
+            System.out.println("handle one kafka message");
         }
     }
 
+    public boolean handleOnce() {
+        if (it.hasNext()) {
+            String data = it.next().message();
+            System.out.println("got message, length=" + data.length());
+            System.out.println(new String(data));
+            accessBaidu();
+            return true;
+        }
+        return false;
+    }
+
+    public static void accessBaidu() {
+        try {
+            URL url = new URL("http://www.baidu.com/?tn=oneapm_pg");
+            HttpURLConnection conn = (HttpURLConnection )url.openConnection();
+
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+
+            conn.connect();
+
+            OutputStream outs = conn.getOutputStream();
+
+            InputStream ins = conn.getInputStream();
+            int count = 10;
+            byte[] buf = new byte[count];
+            int readCount = 0; // 已经成功读取的字节的个数
+            while (readCount < count)
+            {
+                readCount += ins.read(buf, readCount, count - readCount);
+            }
+
+            String msg = new String(buf);
+            System.out.println("get " + msg.substring(0,10));
+        } catch (Exception e) {
+            System.out.println("got exception:"+e);
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args)
     {
         System.out.println("main start");
