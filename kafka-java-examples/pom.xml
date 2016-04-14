@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.jack.kafka</groupId>
             <artifactId>kafka-message-wrapper</artifactId>
-	    <version>${project.version}</version>
+	        <version>${project.version}</version>
         </dependency>
 
         <dependency>

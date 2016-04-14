@@ -1,6 +1,10 @@
 runa: build
 	- rm pinpoint-agent/log/*
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaC1 -Dpinpoint.applicationName=KAFKA_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.PinpointConsumer
+
+run1: build
+	mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.MessageDispatcher
+
 run:
 	mvn clean install
 	mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.PinpointConsumer

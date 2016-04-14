@@ -1,4 +1,4 @@
-run:
+run: build
 	mvn tomcat:run -Dmaven.tomcat.port=8098
 
 build:
@@ -10,6 +10,9 @@ runa: build
 
 curl:
 	curl http://localhost:8098/producer-webapp/producer
+
+c2:
+	curl http://localhost:8098/producer-webapp/wrapproducer
 
 once:
 	mvn clean compile

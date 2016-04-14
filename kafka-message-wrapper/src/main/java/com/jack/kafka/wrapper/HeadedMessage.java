@@ -53,6 +53,7 @@ public class HeadedMessage {
     }
 
     public boolean decode(String input) {
+        System.out.println("HeadedMessage.decode(): -------- ["+input+"] --------");
         this.header.clear();
         this.message=null;
 
