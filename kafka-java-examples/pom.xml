@@ -2,11 +2,17 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.jack</groupId>
+        <artifactId>quickdemo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>com.jack.kafka</groupId>
     <artifactId>kafka-java-examples</artifactId>
     <packaging>jar</packaging>
     <description>kafka-java-examples</description>
-    <version>0.8.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>kafka-java-examples</name>
     <organization>
@@ -14,6 +20,13 @@
     </organization>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.jack.kafka</groupId>
+            <artifactId>kafka-message-wrapper</artifactId>
+	    <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
