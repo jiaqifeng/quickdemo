@@ -1,3 +1,9 @@
+
+# below is not checked.
+# for each in a termial, run as:
+# kafkaproducerwebapp: mk copy runagent
+# kafka-java-examples: mk copy run1a
+# echowebsvr: mk runa
 kafka-run:
 	$(MAKE) -C kafka-java-examples runagentbg
 	$(MAKE) -C kafkaproducerwebapp runagentbg
