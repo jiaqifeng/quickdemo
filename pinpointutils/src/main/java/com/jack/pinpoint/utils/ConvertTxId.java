@@ -6,7 +6,7 @@ import com.navercorp.pinpoint.common.util.TransactionIdUtils;
 public class ConvertTxId {
     /**
      *
-     * 十六进制转换字符串
+     * hex str to String
      */
 
     public static String hexStr2Str(String hexStr) {
@@ -24,7 +24,7 @@ public class ConvertTxId {
     }
 
     /**
-     * bytes转换成十六进制字符串
+     * byte[] to hex string
      */
     public static String byte2HexStr(byte[] b) {
         String hs = "";
@@ -52,7 +52,7 @@ public class ConvertTxId {
     }
 
     /**
-     * bytes转换成十六进制字符串
+     * string to byte[]
      */
     public static byte[] hexStr2Bytes(String src) {
         int m = 0, n = 0;
@@ -72,8 +72,8 @@ public class ConvertTxId {
 
         byte[] bytes=hexStr2Bytes(args[0].replace(" ","").toUpperCase());
         TransactionId txId=TransactionIdUtils.parseTransactionId(bytes);
-        System.out.println("agentId  ="+txId.getAgentId());
-        System.out.println("startTime="+txId.getAgentStartTime());
-        System.out.println("sequence ="+txId.getTransactionSequence());
+        System.out.println("agentId  = "+txId.getAgentId());
+        System.out.println("startTime= "+txId.getAgentStartTime());
+        System.out.println("sequence = "+txId.getTransactionSequence());
     }
 }

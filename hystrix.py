@@ -6,6 +6,7 @@
 
 import os
 import sys
+import subprocess
 
 def get_sysinfo():
     sys = platform.system()
@@ -98,6 +99,15 @@ class Control :
     def helpInfo(self):
         print "usage: start|stop|check|test|help"
 
+def start_hystrix():
+    #p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099", stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=True)
+    #p=subprocess.Popen('ls')
+    #p=subprocess.Popen(["mvn", "-f", "echowebsvr/pom.xml", "tomcat:run", "-Dmaven.tomcat.port=8099"], env={'MAVEN_OPTS':'-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService'}, stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=False)
+    p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099 &> log/echosvr.log & echo $! > log/echosvr.pid", shell=True)
+
+def stop_hystrix():
+    p=subprocess.Popen("if [ -f log/echosvr.pid ]; then kill `cat log/echosvr.pid` || rm log/echosvr.pid; fi", shell=True)
+
 ####################################################
 
 if __name__ == "__main__":
@@ -105,9 +115,11 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         param = sys.argv[1]
         if 'start' == param:
-            contr.start()
+            #contr.start()
+            start_hystrix()
         elif 'stop' == param:
-            contr.stop()
+            #contr.stop()
+            stop_hystrix()
         elif 'check' == param:
             contr.check()
         elif 'test' == param:

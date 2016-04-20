@@ -30,7 +30,9 @@ public class MessageDispatcher extends Thread {
         consumer = kafka.consumer.Consumer.createJavaConsumerConnector(
                 createConsumerConfig());
         topic="topic2";
-        handlersMap.put("topic2", new CommonMessageHandler("worker1"));
+        // select one of below line, 
+        //handlersMap.put("topic2", new CommonMessageHandler("worker1"));    // the call topology end here
+        handlersMap.put("topic2", new HttpClientMessageHandler("worker2"));  // call echo server to show more topology
     }
 
     private static ConsumerConfig createConsumerConfig()
@@ -58,16 +60,16 @@ public class MessageDispatcher extends Thread {
         while(it.hasNext()) {
             System.out.println("while loop once");
             MessageAndMetadata<byte[], byte[]> msg=it.next();
-            Integer key=new Integer(1024);
+            String key=new String(msg.key());
             HeadedMessage data = new HeadedMessage();
             data.decode(new String(msg.message()));
             dispatch(topic, key, data);
         }
     }
 
-    public boolean dispatch(String topic, Integer key, HeadedMessage msg) {
+    public boolean dispatch(String topic, String key, HeadedMessage msg) {
         System.out.println("MessageDispatcher.dispatch() enter ...");
-        MessageHandler<Integer, String> handler=handlersMap.get(topic);
+        MessageHandler<String, String> handler=handlersMap.get(topic);
         if (handler!=null)
             handler.handle(key, msg.getMessage());
         return true;

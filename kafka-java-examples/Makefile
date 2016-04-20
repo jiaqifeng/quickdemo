@@ -2,8 +2,19 @@ runa: build
 	- rm pinpoint-agent/log/*
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaC1 -Dpinpoint.applicationName=KAFKA_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.PinpointConsumer
 
+runagentbg: build stop
+	- rm pinpoint-agent/log/*
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaC1 -Dpinpoint.applicationName=KAFKA_CONSUMER' nohup mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.PinpointConsumer  &> tomcat.log & echo $$! > tomcat.pid
+
+stop:
+	- if [ -f tomcat.pid ]; then kill `cat tomcat.pid` || rm tomcat.pid; fi
+
 run1: build
 	mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.MessageDispatcher
+
+run1a: build
+	- rm pinpoint-agent/log/*
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaC1 -Dpinpoint.applicationName=KAFKA_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.kafka.examples.MessageDispatcher
 
 run:
 	mvn clean install
@@ -13,6 +24,7 @@ build:
 	mvn clean compile
 
 copy:
+	-rm -r pinpoint-agent
 	-mkdir pinpoint-agent
 	cp -r ~/work/pinpoint/agent/target/pinpoint-agent-1.5.2-SNAPSHOT/* pinpoint-agent/
 	sed -i 's/profiler.collector.ip=127.0.0.1/profiler.collector.ip=172.17.42.1/' pinpoint-agent/pinpoint.config
