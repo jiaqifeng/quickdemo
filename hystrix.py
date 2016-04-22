@@ -7,6 +7,7 @@
 import os
 import sys
 import subprocess
+import time
 
 def get_sysinfo():
     sys = platform.system()
@@ -102,15 +103,20 @@ class Control :
   help    show this"""
 
 def start_hystrix():
-    print "start demo hystrix"
-    #p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099", stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=True)
-    #p=subprocess.Popen('ls')
-    #p=subprocess.Popen(["mvn", "-f", "echowebsvr/pom.xml", "tomcat:run", "-Dmaven.tomcat.port=8099"], env={'MAVEN_OPTS':'-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService'}, stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=False)
+    print "startting demo hystrix ..."
     p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099 &> log/echosvr.log & echo $! > log/echosvr.pid", shell=True)
+    p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' mvn -f jumperwebapp/pom.xml tomcat:run -Dmaven.tomcat.port=8098 &> log/jumper.log & echo $! > log/jumper.pid", shell=True)
+    for i in range(0,10):
+        if check_demo("hystrix"):
+            print("demo hystrix started")
+            return
+        time.sleep(1)
+    print("demo hystrix fail to start")
 
 def stop_hystrix():
-    print "stop demo hystrix"
-    p=subprocess.Popen("if [ -f log/echosvr.pid ]; then kill `cat log/echosvr.pid` || rm log/echosvr.pid; fi", shell=True)
+    print "stopping demo hystrix ..."
+    p=subprocess.call("if [ -f log/echosvr.pid ]; then kill `cat log/echosvr.pid` || rm log/echosvr.pid; fi", shell=True)
+    p=subprocess.call("if [ -f log/jumper.pid ]; then kill `cat log/jumper.pid` || rm log/jumper.pid; fi", shell=True)
 
 def port_inuse(port):
     import socket
@@ -123,16 +129,31 @@ def port_inuse(port):
         s.close()
     return False
     
-    
-def check_hystrix():
-    print "check demo hystrix"
+
+def check_demo(demo):
+    result = 0
     if port_inuse(8099):
         print("echosvr is running, port=8099")
-    #p=subprocess.call("netstat -anp 2> /dev/null | grep 8098", shell=True)
-    #p=subprocess.call("netstat -anp 2> /dev/null | grep 8099", shell=True)
+        result += 1
+    if port_inuse(8098):
+        print("jumper is running, port=8098")
+        result += 1
+    if (result == 2):
+        return True
+    return False
+    
+def check_hystrix():
+    print "checking demo hystrix ..."
+    if check_demo("hystrix"):
+        print("demo hystrix are running")
+    else:
+        print("demo are not running well")
+
+def test_hystrix():
+    p=subprocess.call("curl http://localhost:8098/jumper-webapp/jumper", shell=True)
 
 def list_demos():
-    print("no demos now")
+    print("hystrix")
 
 ####################################################
 
@@ -156,7 +177,7 @@ if __name__ == "__main__":
                 elif 'check' == param:
                     check_hystrix()
                 elif 'test' == param:
-                    contr.test()
+                    test_hystrix()
             else:
                 contr.helpInfo()
     else:
