@@ -97,37 +97,69 @@ class Control :
         print "usage: start|stop|check|test|help"
 
     def helpInfo(self):
-        print "usage: start|stop|check|test|help"
+        print """usage: demo_name start|stop|check|test
+  list    show demo list
+  help    show this"""
 
 def start_hystrix():
+    print "start demo hystrix"
     #p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099", stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=True)
     #p=subprocess.Popen('ls')
     #p=subprocess.Popen(["mvn", "-f", "echowebsvr/pom.xml", "tomcat:run", "-Dmaven.tomcat.port=8099"], env={'MAVEN_OPTS':'-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService'}, stdout=open('log/echo.log', 'w'), stderr=open('log/echo.log', 'w'), shell=False)
     p=subprocess.Popen("MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn -f echowebsvr/pom.xml tomcat:run -Dmaven.tomcat.port=8099 &> log/echosvr.log & echo $! > log/echosvr.pid", shell=True)
 
 def stop_hystrix():
+    print "stop demo hystrix"
     p=subprocess.Popen("if [ -f log/echosvr.pid ]; then kill `cat log/echosvr.pid` || rm log/echosvr.pid; fi", shell=True)
+
+def port_inuse(port):
+    import socket
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind(("",port))
+    except:
+        return True
+    finally:
+        s.close()
+    return False
+    
+    
+def check_hystrix():
+    print "check demo hystrix"
+    if port_inuse(8099):
+        print("echosvr is running, port=8099")
+    #p=subprocess.call("netstat -anp 2> /dev/null | grep 8098", shell=True)
+    #p=subprocess.call("netstat -anp 2> /dev/null | grep 8099", shell=True)
+
+def list_demos():
+    print("no demos now")
 
 ####################################################
 
 if __name__ == "__main__":
     contr=Control()
-    if len(sys.argv) == 2:
+    if len(sys.argv) >= 2:
         param = sys.argv[1]
-        if 'start' == param:
-            #contr.start()
-            start_hystrix()
-        elif 'stop' == param:
-            #contr.stop()
-            stop_hystrix()
-        elif 'check' == param:
-            contr.check()
-        elif 'test' == param:
-            contr.test()
+        if 'list' == param:
+            list_demos()
         elif 'help' == param:
-            contr.helpInfo() 
+            contr.helpInfo()
         else:
-            print r"not yes cmd"
-            sys.exit(2)
+            if len(sys.argv) == 3:
+                demo_name = sys.argv[1]
+                param = sys.argv[2]
+                print("params: %s %s " % (demo_name, param))
+                if 'start' == param:
+                    start_hystrix()
+                elif 'stop' == param:
+                    stop_hystrix()
+                elif 'check' == param:
+                    check_hystrix()
+                elif 'test' == param:
+                    contr.test()
+            else:
+                contr.helpInfo()
     else:
-        print "usage: %s start|stop|check|test|help" % sys.argv[0]       
+        contr.helpInfo()
+
+#        print "usage: %s module start|stop|check|test|help" % sys.argv[0]       
