@@ -5,6 +5,8 @@ Some quick demo app for test APM.
 **only tested under ubuntu**
 
 git clone pinpoint and quickdemo under same directory
+**git co 1.6.0-RC1**
+Currently, only tested with 1.6.0-RC1 of pinpoint
 
 build pinpoiont, and start pinpoint quick start
 
