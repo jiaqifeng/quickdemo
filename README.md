@@ -1,15 +1,28 @@
 # quickdemo
 Some quick demo app for test APM.
-# start simple jumper & echo
 
-put pinpoint and quickdemo sourcecode dirs under same dir
+# howto start simple jumper & echo
+**only tested under ubuntu**
+
+git clone pinpoint and quickdemo under same directory
 
 build pinpoiont, and start pinpoint quick start
 
+* in one console run:
 cd quickdemo/echowebsvr
-
 make copy
 
-make runa
+* in one console run:
+cd quickdemo/jumperwebapp
+make ra
 
-in another bash shell run 'make curl' to access echo service, then there should be 1 user access echoservice on pinpoint web UI.
+* in one console run:
+cd quickdemo/jumperwebapp
+make curl
+
+then you should see topology like below in web
+
+![topology](doc/jumper-echo-map.png)
+
+# nodejs helloworld
+see myexpress
