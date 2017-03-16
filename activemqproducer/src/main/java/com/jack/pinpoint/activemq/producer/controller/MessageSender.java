@@ -1,4 +1,4 @@
-package com.jack.pinpoint.activemq.producer;
+package com.jack.pinpoint.activemq.producer.controller;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;

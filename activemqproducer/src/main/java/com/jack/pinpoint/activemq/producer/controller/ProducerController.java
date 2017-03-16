@@ -1,4 +1,4 @@
-package com.jack.pinpoint.activemq.producer;
+package com.jack.pinpoint.activemq.producer.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

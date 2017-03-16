@@ -17,5 +17,9 @@
         <module>kafkaproducerwebapp</module>
         <module>rabbitmq-java-demo</module>
         <module>rabbitmqwebapp</module>
+        <module>activemqconsumer</module>
+        <module>activemqproducer</module>
+        <module>spring-kafka-producer</module>
+        <module>spring-kafka-consumer</module>
     </modules>
 </project>
