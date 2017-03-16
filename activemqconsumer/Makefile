@@ -2,7 +2,7 @@ include ../common.gmk
 
 sd:
 	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Sender
-rc:
+run:
 	mvn exec:java -Dexec.mainClass=com.jack.pinpoint.activemq.consumer.Receiver
 
 runa:

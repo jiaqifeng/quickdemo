@@ -6,13 +6,13 @@
   <groupId>com.jack.pinpoint</groupId>
   <artifactId>utils</artifactId>
   <packaging>jar</packaging>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.6.0-RC1</version>
 
   <dependencies>
     <dependency>
       <groupId>com.navercorp.pinpoint</groupId>
       <artifactId>pinpoint-commons</artifactId>
-      <version>1.5.2-SNAPSHOT</version>
+      <version>1.6.0-RC1</version>
     </dependency>
   </dependencies>
 </project>
