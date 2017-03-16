@@ -7,12 +7,17 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MyMessageListener<K, V> implements MessageListener<K, V> {
     @Override
     public void onMessage(ConsumerRecord<K, V> data) {
+	try { throw new IOException("jack test pinpont"); } catch (IOException e) { e.printStackTrace();};
+
+        System.out.println("\n-------------------- received: " + data.value()+"\n");
+
         try {
             InputStream inputStream = null;
             InputStreamReader inputStreamReader = null;
@@ -47,16 +52,6 @@ public class MyMessageListener<K, V> implements MessageListener<K, V> {
                 }
             }
 
-//            OutputStream outs = conn.getOutputStream();
-//            InputStream ins = conn.getInputStream();
-//
-//            int count = 10;
-//            byte[] buf = new byte[count];
-//            int readCount = 0;
-//            while (readCount < count) {
-//                readCount += ins.read(buf, readCount, count - readCount);
-//            }
-//            String msg = new String(buf);
             System.out.println("MyMessageListener get echo response" + resultBuffer.toString());
         } catch (Exception e) {
             System.out.println("MyMessageListener got exception:"+e);

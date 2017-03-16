@@ -51,21 +51,25 @@ public class Consumer implements Runnable {
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.ENABLE_APM_CONFIG, "true");
         return props;
     }
 
     // wait RET to exit
     @Override
     public void run() {
-        System.out.println("press ret to exit ...........");
-        try {
-            String s = new BufferedReader(new InputStreamReader(System.in)).readLine();
-        } catch (IOException e) {}
-        stop=true;
+        System.out.println("press s and ret to exit ...........");
+	while (true) {
+	    try {
+		String s = new BufferedReader(new InputStreamReader(System.in)).readLine();
+		if ("s".equals(s))
+		    break;
+	    } catch (IOException e) {}
+	}
+	stop=true;
     }
 
     public static void main(String[] args) throws InterruptedException {
+        System.out.println("\n-------------------- KAFKA Consumer start --------------------");
         Consumer consumer=new Consumer();
         new Thread(consumer).start();
 

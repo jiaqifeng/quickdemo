@@ -6,13 +6,13 @@ run: build
 build:
 	mvn clean compile
 
-runagent: build
+runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaP1 -Dpinpoint.applicationName=KAFKA_PRODUCER' mvn tomcat:run -Dmaven.tomcat.port=8098
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT-VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_PRODUCER' mvn tomcat:run -Dmaven.tomcat.port=8098
 
 runagentbg: build stop
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaP1 -Dpinpoint.applicationName=KAFKA_PRODUCER' nohup mvn tomcat:run -Dmaven.tomcat.port=8098 &> tomcat.log & echo $$! > tomcat.pid
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT-VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_PRODUCER' nohup mvn tomcat:run -Dmaven.tomcat.port=8098 &> tomcat.log & echo $$! > tomcat.pid
 
 stop:
 	- if [ -f tomcat.pid ]; then kill `cat tomcat.pid` || rm tomcat.pid; fi

@@ -34,16 +34,7 @@ public class SimpleProducer {
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.ENABLE_APM_CONFIG, "true");
         return props;
-    }
-
-    private static KafkaTemplate<Integer, String> createTemplate() {
-        Map<String, Object> senderProps = senderProps();
-        ProducerFactory<Integer, String> pf =
-                new DefaultKafkaProducerFactory<Integer, String>(senderProps);
-        KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf);
-        return template;
     }
 
     public static void sendOneMessage(String msg) {
