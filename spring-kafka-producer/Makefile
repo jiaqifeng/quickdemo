@@ -20,4 +20,13 @@ stop:
 curl:
 	curl http://localhost:8098/producer/producer?msg=hello
 
+# package a executable jar
+dist:
+	mvn clean package tomcat7:exec-war
+
+# run the executable jar
+execdist:
+	- rm -rf .extract
+	java  -jar target/producer-1.0-SNAPSHOT-war-exec.jar -httpPort 8098
+
 .PHONY: run runpp curl

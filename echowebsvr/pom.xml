@@ -35,7 +35,7 @@
 	<artifactId>tomcat7-maven-plugin</artifactId>
 	<version>2.1</version>
 	<configuration>
-	  <path>echo-websvr</path>
+	  <path>/echo-websvr</path>
 	  <port>8099</port>
 	  <uriEncoding>utf-8</uriEncoding>
 <!--	  <warSourceDirectory>${basedir}/target/deploy</warSourceDirectory> -->
