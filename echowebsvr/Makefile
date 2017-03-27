@@ -11,5 +11,13 @@ long:
 curl:
 	curl http://localhost:8099/echo-websvr/hello
 
+# package a executable jar
+dist:
+	mvn clean package tomcat7:exec-war
+
+# run the executable jar
+execdist:
+	java  -jar target/echo-websvr-1.0-SNAPSHOT-war-exec.jar -httpPort 8099
+
 .PHONY: run runpp curl
 
