@@ -1,10 +1,10 @@
-AGENT-VERSION = 1.6.0-RC1
+AGENT_VERSION = 1.6.0-RC1
 
 # add Launcher as main class of mvn tomcat
 copy:
 	-rm -r pinpoint-agent
 	-mkdir pinpoint-agent
-	cp -r ~/work/pinpoint/agent/target/pinpoint-agent-$(AGENT-VERSION)/* pinpoint-agent/
+	cp -r ~/work/pinpoint/agent/target/pinpoint-agent-$(AGENT_VERSION)/* pinpoint-agent/
 	#sed -i 's/profiler.collector.ip=127.0.0.1/profiler.collector.ip=172.17.42.1/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap,org.codehaus.plexus.classworlds.launcher.Launcher/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.span.port=9996/profiler.collector.span.port=29996/' pinpoint-agent/pinpoint.config
