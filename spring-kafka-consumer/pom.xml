@@ -42,6 +42,50 @@
           <target>1.8</target> <!-- 需要生成的目标class文件的编译版本 -->
         </configuration>
       </plugin>
+
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-jar-plugin</artifactId>  
+        <version>2.4</version>  
+        <configuration>  
+          <archive>  
+            <manifest>  
+              <addClasspath>true</addClasspath>  
+              <classpathPrefix>lib/</classpathPrefix>  
+              <mainClass>com.jack.pinpoint.springkafka.consumer.Consumer</mainClass>  
+            </manifest>  
+          </archive>  
+        </configuration>  
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer
+                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.jack.pinpoint.springkafka.consumer.Consumer</mainClass>
+                </transformer>
+                <!--<transformer-->
+                <!--implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+                <!--<resource>applicationContext.xml</resource>-->
+                <!--</transformer>-->
+              </transformers>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>executable</shadedClassifierName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>

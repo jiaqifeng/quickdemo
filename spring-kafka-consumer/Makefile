@@ -21,4 +21,13 @@ stop:
 curl:
 	curl http://localhost:8098/producer/producer?msg=hello
 
-.PHONY: run runpp curl
+pack:
+	mvn package
+
+exec:pack
+	java -jar target/consumer-1.0-SNAPSHOT-executable.jar
+
+execa:pack
+	java -javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT-VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_COMSUMER -jar target/consumer-1.0-SNAPSHOT-executable.jar
+
+.PHONY: run runpp curl pack exec execa
