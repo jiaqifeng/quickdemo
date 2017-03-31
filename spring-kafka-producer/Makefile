@@ -30,4 +30,6 @@ execdist:
 	- rm -rf .extract
 	java  -jar target/producer-1.0-SNAPSHOT-war-exec.jar -httpPort 8098
 
+# get help
+# java -jar producer-1.0-SNAPSHOT-war-exec.jar -help 
 .PHONY: run runpp curl
