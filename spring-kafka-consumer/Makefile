@@ -1,14 +1,15 @@
 include ../common.gmk
 
 run: build
-	mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer
+	mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer -Dkafkatopic=cool
+#-Dkafkatopic=cool -Dkafkahost=1.1.1.1 -Dechohost=www.baidu.com
 
 build:
 	mvn clean compile
 
 runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_COMSUMER' mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_COMSUMER' mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer -Dkafkatopic=cooltime
 
 runagentbg: build stop
 	- rm pinpoint-agent/log/*

@@ -24,8 +24,7 @@ import java.io.InputStreamReader;
 
 public class Consumer implements Runnable {
 
-
-    static final String host= "localhost:9092";//"172.19.11.197:9092";
+    static final String defaultHost= "localhost:9092";//"172.19.11.197:9092";
     private volatile boolean stop;
 
     public Consumer() {
@@ -33,8 +32,8 @@ public class Consumer implements Runnable {
     }
 
     private static KafkaMessageListenerContainer<Integer, String> createContainer(
-            ContainerProperties containerProps) {
-        Map<String, Object> props = consumerProps();
+            ContainerProperties containerProps, String host) {
+        Map<String, Object> props = consumerProps(host);
         DefaultKafkaConsumerFactory<Integer, String> cf =
                 new DefaultKafkaConsumerFactory<Integer, String>(props);
         KafkaMessageListenerContainer<Integer, String> container =
@@ -42,9 +41,12 @@ public class Consumer implements Runnable {
         return container;
     }
 
-    private static Map<String, Object> consumerProps() {
+    private static Map<String, Object> consumerProps(String host) {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host);
+        if (host==null || "".equals(host))
+            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, defaultHost);
+        else
+            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host+":9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "spring-kafka-test");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
@@ -73,15 +75,24 @@ public class Consumer implements Runnable {
         Consumer consumer=new Consumer();
         new Thread(consumer).start();
 
-        System.out.println("Start wait 4 messages");
-        ContainerProperties containerProps = new ContainerProperties("spring-kafka-test");
+        String topic=System.getProperty("kafkatopic");
+        if (topic==null || "".equals(topic))
+            topic="spring-kafka-test";
+
+        String host=System.getProperty("kafkahost");
+        if (host==null || "".equals(topic))
+            host="localhost";
+
+        System.out.println("\n-------------------- KAFKA Consumer topic="+topic+", kafka host="+host);
+
+        ContainerProperties containerProps = new ContainerProperties(topic);
         containerProps.setMessageListener(new MyMessageListener<Integer, String>());
 //                new MessageListener<Integer, String>() {
 //            public void onMessage(ConsumerRecord<Integer, String> message) {
 //                System.out.println("\n-------------------- received: " + message.value()+"\n");
 //            }
 //        });
-        KafkaMessageListenerContainer<Integer, String> container = createContainer(containerProps);
+        KafkaMessageListenerContainer<Integer, String> container = createContainer(containerProps, host);
         container.setBeanName("testAuto");
         container.start();
         Thread.sleep(1000); // wait a bit for the container to start

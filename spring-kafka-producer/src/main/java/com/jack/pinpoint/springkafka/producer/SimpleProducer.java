@@ -23,11 +23,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class SimpleProducer {
-    static final String host= "localhost:9092";//"172.19.11.197:9092";
+    static final String defaultHost= "localhost:9092";//"172.19.11.197:9092";
 
-    private static Map<String, Object> senderProps() {
+    private static Map<String, Object> senderProps(String host) {
         Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, host);
+        if (host==null || "".equals(host))
+            props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, defaultHost);
+        else
+            props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, host+":9092");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
         props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
@@ -37,10 +40,10 @@ public class SimpleProducer {
         return props;
     }
 
-    public static void sendOneMessage(String msg) {
+    public static void sendOneMessage(String host, String topic, String msg) {
         ContainerProperties containerProps = new ContainerProperties("spring-kafka-test");
 
-        Map<String, Object> senderProps = senderProps();
+        Map<String, Object> senderProps = senderProps(host);
         DefaultKafkaProducerFactory<Integer, String> dpf=new DefaultKafkaProducerFactory<Integer, String>(senderProps);
         ProducerFactory<Integer, String> pf = dpf;
 
@@ -48,7 +51,7 @@ public class SimpleProducer {
 
         System.out.println("\n-------------------- Start send message:"+msg);
 
-        ListenableFuture<SendResult<Integer, String>> future=template.send("spring-kafka-test", 0, msg);
+        ListenableFuture<SendResult<Integer, String>> future=template.send(topic, 0, msg);
         future.addCallback(new ListenableFutureCallback<SendResult<Integer, String>>() {
             @Override
             public void onFailure(Throwable throwable) {

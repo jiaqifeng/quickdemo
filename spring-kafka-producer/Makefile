@@ -19,6 +19,7 @@ stop:
 
 curl:
 	curl http://localhost:8098/producer/producer?msg=hello
+#	curl 'http://localhost:8098/producer/producer?msg=fuck&topic=someday&host=www.baidu.com'
 
 # package a executable jar
 dist:

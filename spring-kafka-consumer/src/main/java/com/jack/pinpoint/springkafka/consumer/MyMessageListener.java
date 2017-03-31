@@ -18,6 +18,10 @@ public class MyMessageListener<K, V> implements MessageListener<K, V> {
 
         System.out.println("\n-------------------- received: " + data.value()+"\n");
 
+        String echohost=System.getProperty("echohost");
+        if (echohost==null || "".equals(echohost))
+            echohost="localhost";
+
         try {
             InputStream inputStream = null;
             InputStreamReader inputStreamReader = null;
@@ -25,7 +29,8 @@ public class MyMessageListener<K, V> implements MessageListener<K, V> {
             StringBuffer resultBuffer = new StringBuffer();
             String tempLine = null;
 
-            URL url = new URL("http://localhost:8099/echo-websvr/hello");//http://www.baidu.com");
+            URL url = new URL("http://"+echohost+":8099/echo-websvr/hello");
+            System.out.println("\n-------------------- connect "+echohost+":8099/echo-websvr/hello\n");
             HttpURLConnection conn = (HttpURLConnection )url.openConnection();
 
             conn.setDoOutput(true);
