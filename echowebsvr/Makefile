@@ -3,7 +3,7 @@ include ../common.gmk
 run:
 	mvn tomcat:run -Dmaven.tomcat.port=8099
 runa:
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService' mvn tomcat:run -Dmaven.tomcat.port=8099
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=echo1 -Dpinpoint.applicationName=EchoService -Dpinpoint.configcenter=false' mvn tomcat:run -Dmaven.tomcat.port=8099
 
 long:
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=echo-long-1234567890123456789012345678901234567890 -Dpinpoint.applicationName=Echo-long-12345678901234567890abcdefghijklmnopqrstuvwxyzabcdefgh' mvn tomcat:run -Dmaven.tomcat.port=8099
