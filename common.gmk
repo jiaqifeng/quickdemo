@@ -11,7 +11,7 @@ copy:
 	-mkdir pinpoint-agent
 	cp -r $(PINPOINT_BASE)/agent/target/pinpoint-agent-$(AGENT_VERSION)/* pinpoint-agent/
 	#sed -i 's/profiler.collector.ip=127.0.0.1/profiler.collector.ip=172.17.42.1/' pinpoint-agent/pinpoint.config
-	sed -i 's/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap,org.codehaus.plexus.classworlds.launcher.Launcher/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap/profiler.tomcat.bootstrap.main=org.apache.catalina.startup.Bootstrap,org.codehaus.plexus.classworlds.launcher.Launcher,org.apache.tomcat.maven.runner.Tomcat7RunnerCli/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.span.port=9996/profiler.collector.span.port=29996/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.stat.port=9995/profiler.collector.stat.port=29995/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.tcp.port=9994/profiler.collector.tcp.port=29994/' pinpoint-agent/pinpoint.config
