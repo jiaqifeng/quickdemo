@@ -4,12 +4,14 @@ import com.jack.pinpoint.dubbo.server.EchoService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EchoClient {
-    public void sayHello(){
+    public String echo(String msg){
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[] { "applicationConsumer.xml" });
 
         context.start();
         EchoService service = (EchoService) context.getBean("echoService");
-        System.out.println(service.echo("lisa"));
+        String echo=service.echo(msg);
+        System.out.println(echo);
+        return echo;
     }
 }

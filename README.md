@@ -34,4 +34,4 @@ see myexpress
 1. start zookeeper first
 2. run dubbo-echo-server
 3. run dubbo-echo-client
-
+4. make curl
