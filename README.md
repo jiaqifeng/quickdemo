@@ -28,3 +28,10 @@ then you should see topology like below in web
 
 # nodejs helloworld
 see myexpress
+
+# dubbo echo example
+
+1. start zookeeper first
+2. run dubbo-echo-server
+3. run dubbo-echo-client
+

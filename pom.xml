@@ -21,5 +21,7 @@
         <module>activemqproducer</module>
         <module>spring-kafka-producer</module>
         <module>spring-kafka-consumer</module>
+        <module>dubbo-echo-client</module>
+        <module>dubbo-echo-server</module>
     </modules>
 </project>
