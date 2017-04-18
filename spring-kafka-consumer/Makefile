@@ -9,7 +9,7 @@ build:
 
 runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_COMSUMER' mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer -Dkafkatopic=cooltime
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_COMSUMER' mvn exec:java -Dexec.mainClass=com.jack.pinpoint.springkafka.consumer.Consumer -Dkafkatopic=$(TOPIC)
 
 runagentbg: build stop
 	- rm pinpoint-agent/log/*
