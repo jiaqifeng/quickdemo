@@ -1,17 +1,19 @@
 include ../common.gmk
 
+PORT=8091
+
 build:
 	mvn clean compile
 
 run:build
-	mvn tomcat:run -Dmaven.tomcat.port=8091
+	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
 runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=dubboclient1 -Dpinpoint.applicationName=DUBBO_CLIENT' mvn tomcat:run -Dmaven.tomcat.port=8091
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=DUBBO_CLIENT' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
 curl:
-	curl http://localhost:8091/echo-client/dubbo
+	curl http://localhost:$(PORT)/echo-client/dubbo
 
 
 standalone:

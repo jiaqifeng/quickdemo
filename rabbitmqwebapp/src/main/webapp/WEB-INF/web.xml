@@ -10,7 +10,7 @@
 
   <servlet>
     <servlet-name>rabbitmq</servlet-name>
-    <servlet-class>com.jack.maven.webapp.RabbitmqSender</servlet-class>
+    <servlet-class>com.jack.pinpoint.jumper.RabbitmqSender</servlet-class>
   </servlet>
 
   <servlet-mapping>

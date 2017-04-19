@@ -7,25 +7,13 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
                  version="2.5">
   <display-name>Archetype Created Web Application</display-name>
-
   <servlet>
-    <servlet-name>producer</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.ProducerServlet</servlet-class>
+    <servlet-name>hello</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.Hello</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>producer</servlet-name>
-    <url-pattern>/producer</url-pattern>
+    <servlet-name>hello</servlet-name>
+    <url-pattern>/hello</url-pattern>
   </servlet-mapping>
-
-  <servlet>
-    <servlet-name>wrapproducer</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.WrappedProducerServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>wrapproducer</servlet-name>
-    <url-pattern>/wrapproducer</url-pattern>
-  </servlet-mapping>
-
 </web-app>

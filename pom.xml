@@ -2,15 +2,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jack</groupId>
-    <artifactId>quickdemo</artifactId>
+    <groupId>com.jack.pinpoint</groupId>
+    <artifactId>demoapp</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>quickdemo</name>
+    <name>demoapp</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>echowebsvr</module>
-        <module>jumperwebapp</module>
+        <module>echo</module>
+        <module>jumper</module>
         <module>kafka-java-examples</module>
         <module>echoweb-log4j</module>
         <module>kafka-message-wrapper</module>

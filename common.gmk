@@ -1,10 +1,14 @@
 # extrace pinpoint version
 PINPOINT_BASE=../../pinpoint
 AGENT_VERSION=$(shell grep quickstart.version $(PINPOINT_BASE)/quickstart/conf/quickstart.properties | sed 's/quickstart.version=//g' )
+AGENT_ARGS=-Dpinpoint.configcenter=false
 
 debug:
 	@echo $(AGENT_VERSION)
-	
+
+mvnrebuild:
+	mvn clean compile
+
 # add Launcher as main class of mvn tomcat
 copy:
 	-rm -r pinpoint-agent

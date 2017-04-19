@@ -29,7 +29,7 @@ public class MyMessageListener<K, V> implements MessageListener<K, V> {
             StringBuffer resultBuffer = new StringBuffer();
             String tempLine = null;
 
-            URL url = new URL("http://"+echohost+":8099/echo-websvr/hello");
+            URL url = new URL("http://"+echohost+":8099/echo/hello");
             System.out.println("\n-------------------- connect "+echohost+":8099/echo-websvr/hello\n");
             HttpURLConnection conn = (HttpURLConnection )url.openConnection();
 
