@@ -26,6 +26,9 @@ public class Jumper implements Servlet {
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(url);
+
+        // enable below line, agent will send 2 SpanChunk and 1 SPAN to collector
+        //for (int i=0;i<23;i++) {
             HttpResponse loginResponse = httpClient.execute(httpGet);
 
             if (loginResponse.getStatusLine().getStatusCode() == 200) {
@@ -35,9 +38,11 @@ public class Jumper implements Servlet {
             } else {
                 System.out.println("got failure from " + url);
             }
+        //}
         } catch (IOException io) {
             System.out.println("got exception: "+io);
         }
+
         PrintWriter pw=resp.getWriter();
         pw.println(loginEntityContent);
     }
