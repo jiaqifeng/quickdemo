@@ -33,12 +33,12 @@ tested.
 
 ![topology](doc/spring-kafka-map.png)
 
-## activemq [TODO]
+## activemq `TODO`
 
 Not tested after last refactor.
 
-## pinpointutils [TODO]
-some utils functions to be used under
+## pinpointutils `TODO`
+some util formater to be used under hbase shell for pinpoint. Not include now.
 
 # nodejs helloworld
 TODO
