@@ -22,12 +22,23 @@ jumper calls echo in 4 ways, using HttpClient, JDKHttp API, Hystrix, And Thrift.
 ![topology](doc/jumper-echo-map.png)
 
 ## dubbo client and server
+
 tested.
+
 ![topology](doc/dubbo-map.png)
 
 ## spring kafka producer, consumer and echo
+
 tested.
+
 ![topology](doc/spring-kafka-map.png)
+
+## activemq [TODO]
+
+Not tested after last refactor.
+
+## pinpointutils [TODO]
+some utils functions to be used under
 
 # nodejs helloworld
 TODO
