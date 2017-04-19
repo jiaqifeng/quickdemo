@@ -3,26 +3,38 @@ include ../common.gmk
 # run background
 
 rb: stop
-	nohup mvn tomcat:run -Dmaven.tomcat.port=8098 &> tomcat.log & echo $$! > tomcat.pid
+	nohup mvn tomcat:run -Dmaven.tomcat.port=8097 &> tomcat.log & echo $$! > tomcat.pid
 
-r:
+build:
+	mvn clean compile
+
+run: build
 	mvn tomcat:run -Dmaven.tomcat.port=8097
 
-ra: stop
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=8098
+runa: stop
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=8097
 
 rab: stop
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' nohup mvn tomcat:run -Dmaven.tomcat.port=8098 &> tomcat.log & echo $$! > tomcat.pid
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' nohup mvn tomcat:run -Dmaven.tomcat.port=8097 &> tomcat.log & echo $$! > tomcat.pid
 
 curl:
-	curl http://localhost:8098/jumper-webapp/jumper
+	curl http://localhost:8097/jumper-webapp/jumper
 
 c2:
-	curl http://localhost:8098/jumper-webapp/jdkhttp
+	curl http://localhost:8097/jumper-webapp/jdkhttp
+
+c3:
+	curl http://localhost:8097/jumper-webapp/hystrixjumper
+
+c4:
+	curl http://localhost:8097/jumper-webapp/thrift
 
 stop:
 	- if [ -f tomcat.pid ]; then kill `cat tomcat.pid` || rm tomcat.pid; fi
 #	- if [ -f tomcat.log ]; then rm tomcat.log; fi
+
+thrift:
+	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/maven/webapp/; cd ../..
 
 .PHONY: run runpp curl
 

@@ -37,4 +37,14 @@
     <url-pattern>/hystrixjumper</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>thrift</servlet-name>
+    <servlet-class>com.jack.maven.webapp.ThriftServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>thrift</servlet-name>
+    <url-pattern>/thrift</url-pattern>
+  </servlet-mapping>
+
 </web-app>
