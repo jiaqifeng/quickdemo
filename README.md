@@ -1,37 +1,30 @@
-# quickdemo
-Some quick demo app for test APM.
+# pinpoint demo apps
+Provide some demo app for test pinpoint.
 
-# howto start simple jumper & echo
-**only tested under ubuntu**
+# common usage
+Place the source code of pinpoint and this project under same directory.
+In each demo app dir:
+**make copy** will copy the agent files from pinpoint agent dir after build pinpoint successfully. The pinpoint version will be extract from pinpoint quickstart config automatically.
+**make run** will run app without agent.
+**make runa** will run app with agent.
+**make curl** will access the web url for demo web app
 
-git clone pinpoint and quickdemo under same directory
-**git co 1.6.0-RC1**
-Currently, only tested with 1.6.0-RC1 of pinpoint
-
-build pinpoiont, and start pinpoint quick start
-
-* in one console run:
-cd quickdemo/echowebsvr
-make copy
-
-* in one console run:
-cd quickdemo/jumperwebapp
-make ra
-
-* in one console run:
-cd quickdemo/jumperwebapp
-make curl
-
-then you should see topology like below in web
+# tested demo app groups
+**only tested under ubuntu, with 1.6.0-RC1 and 1.6.1-SNAPSHOT**
+## jumper and echo
+jumper calls echo in 4 ways, using HttpClient, JDKHttp API, Hystrix, And Thrift.
 
 ![topology](doc/jumper-echo-map.png)
 
+## dubbo client and server
+tested.
+![topology](doc/dubbo-map.png)
+
+## spring kafka producer, consumer and echo
+tested.
+![topology](doc/spring-kafka-map.png)
+
 # nodejs helloworld
-see myexpress
+TODO
+see myexpress, using nodejs agent from peaksnail
 
-# dubbo echo example
-
-1. start zookeeper first
-2. run dubbo-echo-server
-3. run dubbo-echo-client
-4. make curl
