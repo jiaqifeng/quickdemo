@@ -4,10 +4,15 @@ Provide some demo app for test pinpoint.
 # common usage
 Place the source code of pinpoint and this project under same directory.
 In each demo app dir:
+
 **make copy** will copy the agent files from pinpoint agent dir after build pinpoint successfully. The pinpoint version will be extract from pinpoint quickstart config automatically.
+
 **make run** will run app without agent.
+
 **make runa** will run app with agent.
+
 **make curl** will access the web url for demo web app
+
 
 # tested demo app groups
 **only tested under ubuntu, with 1.6.0-RC1 and 1.6.1-SNAPSHOT**
