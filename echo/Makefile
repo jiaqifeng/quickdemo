@@ -11,6 +11,12 @@ runa: mvnrebuild
 curl:
 	curl http://localhost:$(PORT)/echo/hello
 
+jetty:
+	mvn -f jettypom.xml jetty:run -Djetty.port=8099
+
+jettya:
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=EchoJetty' mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
+
 # package a executable jar
 dist:
 	mvn clean package tomcat7:exec-war
