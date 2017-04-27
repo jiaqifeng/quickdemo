@@ -16,4 +16,15 @@
     <servlet-name>hello</servlet-name>
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
+
+    <servlet>
+        <servlet-name>entry</servlet-name>
+        <servlet-class>com.jack.pinpoint.jumper.EntryPoint</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>entry</servlet-name>
+        <url-pattern>/entry</url-pattern>
+    </servlet-mapping>
+
 </web-app>

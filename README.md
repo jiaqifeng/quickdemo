@@ -33,6 +33,9 @@ tested.
 
 ![topology](doc/spring-kafka-map.png)
 
+## echo to test user plugin
+make curl2
+
 ## activemq `TODO`
 
 Not tested after last refactor.
