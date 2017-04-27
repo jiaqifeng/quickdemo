@@ -35,5 +35,8 @@ execdist:
 	- rm -rf .extract
 	java  -jar target/echo-websvr-1.0-SNAPSHOT-war-exec.jar -httpPort 8099
 
+curl3:
+	http :8099/echo/hello
+
 .PHONY: run runpp curl
 
