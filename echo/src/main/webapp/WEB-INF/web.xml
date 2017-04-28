@@ -9,7 +9,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <servlet-name>hello</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.Hello</servlet-class>
+    <servlet-class>com.jack.pinpoint.echo.Hello</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>entry</servlet-name>
-        <servlet-class>com.jack.pinpoint.jumper.EntryPoint</servlet-class>
+        <servlet-class>com.jack.pinpoint.echo.EntryPoint</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -27,4 +27,13 @@
         <url-pattern>/entry</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>thrift</servlet-name>
+        <servlet-class>com.jack.pinpoint.echo.ThriftServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>thrift</servlet-name>
+        <url-pattern>/thrift</url-pattern>
+    </servlet-mapping>
 </web-app>

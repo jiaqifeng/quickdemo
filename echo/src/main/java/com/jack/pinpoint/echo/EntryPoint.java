@@ -1,13 +1,13 @@
-package com.jack.pinpoint.jumper;
+package com.jack.pinpoint.echo;
 
 import javax.servlet.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-import org.apache.log4j.Logger;
-
-public class Hello implements Servlet {
-    static Logger logger = Logger.getLogger(Hello.class);
-
+/**
+ * Created by jack on 17-4-27.
+ */
+public class EntryPoint implements Servlet {
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");
     }
@@ -16,7 +16,7 @@ public class Hello implements Servlet {
     }
     public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
         System.out.println("service it");
-        logger.info("Hello.service(): test log4j --------++++++++++++++++++---------------_++++++++++++++");
+        myEntryPoint();
         PrintWriter pw=resp.getWriter();
         pw.println("Hello Webapp");
     }
@@ -25,5 +25,9 @@ public class Hello implements Servlet {
     }
     public void destroy() {
         System.out.println("destroy!");
+    }
+    public String myEntryPoint() {
+        System.out.println("+++++++++++++++++++++++++++++ see here! in com.jack.pinpoint.jumper.EntryPoint.myEntryPoint()");
+        return "This is my entry point";
     }
 }
