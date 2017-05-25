@@ -16,7 +16,11 @@ public class EntryPoint implements Servlet {
     }
     public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
         System.out.println("service it");
-        myEntryPoint();
+        try {
+            myEntryPoint();
+        } catch (Exception e) {
+            System.out.println("got exception "+e);
+        }
         PrintWriter pw=resp.getWriter();
         pw.println("Hello Webapp");
     }
@@ -27,7 +31,9 @@ public class EntryPoint implements Servlet {
         System.out.println("destroy!");
     }
     public String myEntryPoint() {
-        System.out.println("+++++++++++++++++++++++++++++ see here! in com.jack.pinpoint.jumper.EntryPoint.myEntryPoint()");
+        System.out.println("+++++++++++++++++++++++++++++ see here! in com.jack.pinpoint.jumper.EntryPoint.myEntryPoint(), an exception should be recorded on pinpoint web.");
+        byte[] a=new byte[2];
+        a[4]=3;
         return "This is my entry point";
     }
 }
