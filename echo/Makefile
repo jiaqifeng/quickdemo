@@ -6,6 +6,7 @@ config:
 	sed -i 's/^profiler.entrypoint=$$/profiler.entrypoint=com.jack.pinpoint.echo.EntryPoint.myEntryPoint,com.jack.pinpoint.echo.ThriftServlet.doTalkService/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.log4j.logging.transactioninfo=false/profiler.log4j.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
+	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 
 run: mvnrebuild config
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
