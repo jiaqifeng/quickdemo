@@ -13,7 +13,8 @@ import org.apache.log4j.Logger;
 /**
  * add profiler.entrypoint=java.lang.Runtime.exec,com.jack.pinpoint.echo.ErrorServlet.exec
  *
- * while this not work as expected
+ * 1 http POST :8099/echo/error, cause UNIXProcess be retransformed.
+ * 2 http :8099/echo/error while print out the first args
  *
  * Created by jack on 17-5-5.
  */
@@ -24,22 +25,8 @@ public class ErrorServlet extends HttpServlet {
             throws ServletException, IOException {
 
         System.out.println("-------------------------------------- do get");
-        exec();
-
-		response.setStatus(200);
-        PrintWriter out = response.getWriter();
-        out.println("service it");
-        //上面两行代码相当于下面这一句，会默认把状态码设置为302
-        //response.sendRedirect("/servlet/Demo6");
-    }
-    public void exec() {
-        System.out.println("fengjiaqi: in ErrorServlet.exec()");
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        System.out.println("-------------------------------------- do post");
-        Process p=Runtime.getRuntime().exec("ls /home");
+        System.out.println("-------------------------------------- Runtime loader="+Runtime.getRuntime().getClass().getClassLoader()+",Runtime="+Runtime.getRuntime());
+        Process p=Runtime.getRuntime().exec("hacker-come!!!");
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(p.getInputStream()));
         String ls;
         String result="";
@@ -52,6 +39,22 @@ public class ErrorServlet extends HttpServlet {
         } catch (InterruptedException e) {}
         PrintWriter out = response.getWriter();
         out.println(result);
+
+		response.setStatus(200);
+    }
+
+    // add profiler.entrypoint=java.lang.Runtime.exec,com.jack.pinpoint.echo.ErrorServlet.exec
+    public void exec() {
+        System.out.println("fengjiaqi: in ErrorServlet.exec()");
+    }
+
+    // tigger the retransform
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("-------------------------------------- do post");
+        exec();
+        PrintWriter out = response.getWriter();
+        out.println("service it");
     }
 }
 
