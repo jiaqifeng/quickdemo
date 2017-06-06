@@ -47,4 +47,14 @@
     <url-pattern>/thrift</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>async</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.AsyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>async</servlet-name>
+    <url-pattern>/async</url-pattern>
+  </servlet-mapping>
+
 </web-app>

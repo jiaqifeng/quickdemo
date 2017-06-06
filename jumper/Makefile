@@ -2,10 +2,15 @@ include ../common.gmk
 
 PORT=8097
 
+config:
+	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
+	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
+	sed -i 's/profiler.async.runnablelist=$$/profiler.async.runnablelist=com.jack.pinpoint.jumper.AsyncServlet$$MyRunnable/' pinpoint-agent/pinpoint.config
+
 run: mvnrebuild
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
-runa: stop
+runa: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
 curl:
@@ -19,6 +24,9 @@ c3:
 
 c4:
 	curl http://localhost:$(PORT)/jumper/thrift
+
+ca:
+	curl http://localhost:$(PORT)/jumper/async
 
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
