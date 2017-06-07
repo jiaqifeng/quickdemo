@@ -24,5 +24,6 @@
         <module>dubbo-echo-client</module>
         <module>dubbo-echo-server</module>
         <module>cmdlinehello</module>
+        <module>addressbook</module>
     </modules>
 </project>
