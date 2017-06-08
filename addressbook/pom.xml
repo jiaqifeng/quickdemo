@@ -10,7 +10,7 @@
 
     <artifactId>addressbook</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>addressbook</name>
     <description>addressbook demo spring boot with mybatis</description>
     
