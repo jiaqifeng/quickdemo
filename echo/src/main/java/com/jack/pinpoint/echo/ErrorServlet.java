@@ -4,10 +4,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -26,7 +24,8 @@ public class ErrorServlet extends HttpServlet {
 
         System.out.println("-------------------------------------- do get");
         System.out.println("-------------------------------------- Runtime loader="+Runtime.getRuntime().getClass().getClassLoader()+",Runtime="+Runtime.getRuntime());
-        Process p=Runtime.getRuntime().exec("hacker-come!!!");
+
+        Process p=Runtime.getRuntime().exec("pwd");
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(p.getInputStream()));
         String ls;
         String result="";
@@ -37,6 +36,12 @@ public class ErrorServlet extends HttpServlet {
         try {
             p.waitFor();
         } catch (InterruptedException e) {}
+
+        File file = new File("/etc/Makefile");
+        file.listFiles();
+        FileWriter fw = new FileWriter("Makefile.new");
+        fw.close();
+
         PrintWriter out = response.getWriter();
         out.println(result);
 

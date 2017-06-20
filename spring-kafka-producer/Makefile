@@ -5,7 +5,7 @@ PORT=8098
 run: mvnrebuild
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
-runa: mvnrebuild
+runa: mvnrebuild debuglog
 	- rm pinpoint-agent/log/*
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_PRODUCER' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
