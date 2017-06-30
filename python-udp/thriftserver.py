@@ -62,25 +62,51 @@ class ReadInt(Structure):
     def __init__(self, buffer=None):
         self.value = ((self.type1*256 + self.type2)*256 + self.type3)*256 + self.type4
 
+class PinpointHeader(Structure):
+    _fields_ = [
+        ("signature", c_ubyte),
+        ("version", c_ubyte),
+        ("typehigh", c_ubyte),
+        ("typelow", c_ubyte),
+    ]
+
+    def __new__(self, buffer=None):
+        return self.from_buffer_copy(buffer)
+
+    def __init__(self, buffer=None):
+        self.type = self.typehigh*256 + self.typelow
+
 class AttackInfoProcessor(TProcessor):
     def __init__(self):
         self.packet_map = { 150 : "handshake"}
         
     def process(self, iprot, oprot):
         print("enter AttackInfoProcessor.process")
-        #ttttttttttt=iprot.trans.read(2)
-        print "unpack packet type=%d" % struct.unpack("!h", iprot.trans.read(2))
-        printhex(ttttttttttt)
+        packettype, =struct.unpack("!h", iprot.trans.read(2))
+        print "get packet type=%d" % packettype
 
-        header = PacketHeader(ttttttttttt)
-        print "header type=%d" % (header.packettype)  # this should be 150 for handshake
-
-        if (header.packettype == 150):
-            iprot.trans.read(4) # messageId see ControlHandshakePacket
-            length=ReadInt(iprot.trans.read(4)).value
-            print "handshake payload length=%d" % length
+        if (packettype == 150):
+            messageId, length = struct.unpack("!2I", iprot.trans.read(8)) # see ControlHandshakePacket
+            print "get handshake messageId=%d, payload length=%d" % (messageId, length)
             iprot.trans.read(length)
+            # PacketDecoder.decode()
+            # type, id=ControlHandshakeResponsePacket.readBuffer(), payloadLen(PayloadPacket.readPayload())
+            resp=struct.pack('!hII5s', 151, messageId,5, "hello")
+            oprot.trans.write(resp)
+            oprot.trans.flush()
             return
+
+        if (packettype == 1): #application
+            #buffer, = struct.unpack("!10s", iprot.trans.read(10))
+            #printhex(buffer)
+            length, = struct.unpack("!I", iprot.trans.read(4))
+            print "get app packet length=%d" % length
+            header = PinpointHeader(iprot.trans.read(4))
+            args = TAttackInfo()
+            args.read(iprot)
+            iprot.readMessageEnd()
+            print("receive args", args)
+
         
         (name, itype, seqid) = iprot.readMessageBegin()
         print("receive name=%s type=%d, seqid=%d" % (name, itype, seqid))
