@@ -133,16 +133,15 @@ class ControlMessageDecoder:
             return value, buffer[8:];
         if (ptype == 'S'):
             length, buffer = self.decodeLength(buffer)
-            print "!"+str(length)+"c"
             value, =struct.unpack("!"+str(length)+"s", buffer[:length])
-            print "value = %s" % value
+            print "decode string value = %s" % (value)
             return value, buffer[length:];
         if (ptype == 'M'):
             print "start decode map"
             while (True):
                 endchar, = struct.unpack("!c", buffer[:1])
                 if (endchar == 'z'):
-                    print "decode map end"
+                    print "decode map end, buffer len=%d" % (len(buffer))
                     break;
                 else:
                     print "start decode key"
@@ -183,7 +182,16 @@ class AttackInfoProcessor(TProcessor):
             ControlMessageDecoder().decode(buffer)
             # PacketDecoder.decode()
             # type, id=ControlHandshakeResponsePacket.readBuffer(), payloadLen(PayloadPacket.readPayload())
-            resp=struct.pack('!hII5s', 151, messageId,5, "hello")
+            # return a map, which is checked in DefaultPinpointClientHandler.handHandshakePacket()
+            # {"code":0-for success, "subCode":0, "cluster":null}
+            #respMap=struct.pack('!ccB4scIcB7scIcB7scc', 'M', 'S', 4, 'code', 'I', 0, 'S', 7, 'subCode', 'I', 0, 'S', 7, 'cluster', 'N', 'z')
+            # start response
+            print "start packet map"
+            firstchar='M'
+            respMap=struct.pack('!ccB4scIcB7scIcB7scc', 'M', 'S', 4, 'code', 'I', 0, 'S', 7, 'subCode', 'I', 0, 'S', 7, 'cluster', 'N', 'z')
+            print "after pack map"
+            print "generate response length=%d" %(len(respMap))
+            resp=struct.pack('!hII'+str(len(respMap))+'s', 151, messageId, len(respMap), respMap)
             oprot.trans.write(resp)
             oprot.trans.flush()
             return
@@ -198,8 +206,21 @@ class AttackInfoProcessor(TProcessor):
             args.read(iprot)
             iprot.readMessageEnd()
             print("receive args", args)
+            return
 
-        
+        if (packettype == const.CONTROL_PING):
+            print "handle ping packet"
+            pingid, =struct.unpack("!I", iprot.trans.read(4))
+            print "pingid=%d" % (pingid)
+            version, code = struct.unpack("!2B", iprot.trans.read(2))
+            print "version=%d, code=%d" % (version, code)
+            # send back pong?
+            resp=struct.pack('!h', 201)
+            oprot.trans.write(resp)
+            oprot.trans.flush()
+            print "flush pong"
+            return
+            
         (name, itype, seqid) = iprot.readMessageBegin()
         print("receive name=%s type=%d, seqid=%d" % (name, itype, seqid))
         args = TAttackInfo()
