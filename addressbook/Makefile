@@ -22,4 +22,4 @@ ca:
 pack:
 	mvn package
 execa:
-	java -javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT-VERSION).jar -Dpinpoint.agentId=agent1 -Dpinpoint.applicationName=SPRING_KAFKA_PRODUCER -jar target/producer-1.0-SNAPSHOT.jar
+	java -javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=agent2 -Dpinpoint.applicationName=SPRING_KAFKA_PRODUCER -jar target/addressbook-1.0-SNAPSHOT.jar
