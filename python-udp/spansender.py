@@ -48,24 +48,41 @@ except ValueError:
 s.connect((host, port))
 
 ########## pack span data
-transport = TTransport.TMemoryBuffer()
-prot = TCompactProtocol.TCompactProtocol(transport)
 
 # fill in span
 agentid="agent1"
 agentstarttime=int(round(time.time()*1000))
 sequence=1
-txIdstr=agentid+"^"+str(agentstarttime)+"^"+str(sequence)
-txId=struct.pack('B'+str(len(txIdstr))+'s', 0, txIdstr)
 
 #TSpan(agentId:agent1, applicationName:EchoService, agentStartTime:1501121527534, transactionId:00 01 EE FD C2 8E D8 2B 01, spanId:-1385129957079395241, startTime:1501121560702, elapsed:77, rpc:/echo/hello, serviceType:1010, endPoint:localhost:8099, remoteAddr:127.0.0.1, flag:0, spanEventList:[TSpanEvent(sequence:0, startElapsed:7, endElapsed:70, serviceType:1011, depth:1, apiId:8)], apiId:9, applicationServiceType:1000)
-span=TSpan(agentId=agentid, applicationName='EchoService', agentStartTime=agentstarttime, spanId=-1385129957079395241, startTime=1501121560702, elapsed=77, rpc='/echo/hello', serviceType=1010, endPoint='localhost:8099', remoteAddr="127.0.0.1", flag=0, apiId=9, applicationServiceType=1000)
+span=TSpan(agentId=agentid,
+           applicationName='EchoService',
+           agentStartTime=agentstarttime,
+           spanId=-1385129957079395241,
+           startTime=int(round(time.time()*1000)),
+           elapsed=77,
+           rpc='/echo/hello',
+           serviceType=1010,
+           endPoint='localhost:8099',
+           remoteAddr="127.0.0.1",
+           flag=0,
+           apiId=9,
+           applicationServiceType=1000)
 span.transactionId=packTxId(agentid, agentstarttime,sequence)
-spanevent=TSpanEvent(sequence=0, startElapsed=7, endElapsed=70, serviceType=1011, depth=1, apiId=8)
+spanevent=TSpanEvent(sequence=0,
+                     startElapsed=7,
+                     endElapsed=70,
+                     serviceType=1011,
+                     depth=1,
+                     apiId=8)
 span.spanEventList=[spanevent]
 
 
-span.write(prot)
-alldata=header+transport.getvalue()
-for i in range(0, 1):
+for i in range(0, 300):
+    transport = TTransport.TMemoryBuffer()
+    prot = TCompactProtocol.TCompactProtocol(transport)
+    span.spanId=span.spanId+1
+    span.transactionId=packTxId(agentid, agentstarttime,i)
+    span.write(prot)
+    alldata=header+transport.getvalue()
     s.sendall(alldata)
