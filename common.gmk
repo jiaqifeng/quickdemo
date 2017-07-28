@@ -19,7 +19,8 @@ copy:
 	sed -i 's/profiler.collector.span.port=9996/profiler.collector.span.port=29996/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.stat.port=9995/profiler.collector.stat.port=29995/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.tcp.port=9994/profiler.collector.tcp.port=29994/' pinpoint-agent/pinpoint.config
-
+	sed -i 's/profiler.attackchecker.udp.port=9997/profiler.attackchecker.udp.port=29993/' pinpoint-agent/pinpoint.config
+	
 debuglog:
 	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 
