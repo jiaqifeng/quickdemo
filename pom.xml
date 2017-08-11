@@ -15,8 +15,8 @@
         <module>echoweb-log4j</module>
         <module>kafka-message-wrapper</module>
         <module>kafkaproducerwebapp</module>
-        <module>rabbitmq-java-demo</module>
-        <module>rabbitmqwebapp</module>
+        <module>rabbitmq-consumer</module>
+        <module>rabbitmq-producer</module>
         <module>activemqconsumer</module>
         <module>activemqproducer</module>
         <module>spring-kafka-producer</module>

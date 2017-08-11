@@ -1,0 +1,12 @@
+include ../common.gmk
+
+config:
+	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
+
+sd:
+	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Sender
+rc:
+	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
+
+runa: config
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=rabbit-consumer1 -Dpinpoint.applicationName=RABBITMQ_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
