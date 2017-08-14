@@ -18,32 +18,51 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RabbitmqSender extends HttpServlet{
-  private final static String QUEUE_NAME = "hello";
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse response)
-    throws ServletException, IOException {
-      String message = "Error";
-      try {
-	  System.out.println("RabbitmqSender doGet()");
-	  ConnectionFactory factory = new ConnectionFactory();
-	  factory.setHost("localhost");
-    
-	  Connection connection = factory.newConnection();
-	  Channel channel = connection.createChannel();
-	  channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-	  message = "Hello RabbitMQ World";
-	  AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
-	  channel.basicPublish("", QUEUE_NAME, builder.appId("test").build(), message.getBytes());
-	  System.out.println(" [x] Sent '" + message + "'");
-	  channel.close();
-	  connection.close();
-      } catch (Exception e) {
-	  System.out.println("got execption "+e);
-      }
+public class RabbitmqSender extends HttpServlet {
 
-    PrintWriter out=response.getWriter();
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse response)
+            throws ServletException, IOException {
+        String message=req.getParameter("msg");
+        if (message==null || "".equals(message))
+            message="hello rabbit";
 
-    out.println("send rabbitmq:"+message);
-  }
+        String exchange=req.getParameter("exchange");
+        if (exchange==null || "".equals(exchange))
+            exchange="test-pp";
+
+        String queuename=req.getParameter("queue");
+        if (queuename==null || "".equals(queuename))
+            queuename="queue-pp";
+
+        try {
+            System.out.println("RabbitmqSender.doGet() ---- start");
+            System.out.println("RabbitmqSender.doGet() ---- exchange="+exchange+", queue="+queuename+", message="+message);
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            // enable below to test AutorecoveringChannel
+            factory.setAutomaticRecoveryEnabled(true);
+
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+            System.out.println("RabbitmqSender.doGet() ---- create channel is " + channel.getClass().getName());
+
+            channel.exchangeDeclare(exchange, "direct", false);
+            channel.queueDeclare(queuename, false, false, false, null);
+            channel.queueBind(queuename, exchange, "test");
+
+            AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
+            channel.basicPublish(exchange, "test", false, false, builder.appId("test").build(), message.getBytes());
+            System.out.println("RabbitmqSender.doGet() ---- Sent message:" + message);
+
+            channel.close();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("got execption " + e);
+        }
+
+        PrintWriter out = response.getWriter();
+
+        out.println("send rabbitmq:" + message);
+    }
 }

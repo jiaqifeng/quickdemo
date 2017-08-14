@@ -5,7 +5,8 @@ config:
 
 sd:
 	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Sender
-rc:
+
+run: mvnrebuild
 	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
 
 runa: config

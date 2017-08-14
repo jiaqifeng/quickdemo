@@ -13,16 +13,18 @@ import com.rabbitmq.client.Envelope;
 
 public class Receiver
 {
-    private final static String QUEUE_NAME = "hello";
-
     public static void main( String[] args ) throws IOException, java.lang.InterruptedException, TimeoutException {
+        String queuename=System.getProperty("queuename");
+        if (queuename==null || "".equals(queuename))
+            queuename="queue-pp";
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
  
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        channel.queueDeclare(queuename, false, false, false, null);
+        System.out.println("Receiver.main() ---- Waiting for messages. To exit press CTRL+C");
  
         Consumer consumer = new DefaultConsumer(channel) {
             @Override
@@ -30,9 +32,9 @@ public class Receiver
                     byte[] body) throws IOException {
                 super.handleDelivery(consumerTag,envelope,properties,body);
                 String message = new String(body, "UTF-8");
-                System.out.println(" [x] Received '" + message + "'");
+                System.out.println("Receiver.main() ---- Received exchange="+envelope.getExchange()+", routingkey="+envelope.getRoutingKey()+", message=" + message);
             }
         };
-        channel.basicConsume(QUEUE_NAME, true, consumer);
+        channel.basicConsume(queuename, true, consumer);
     }
 }

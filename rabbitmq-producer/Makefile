@@ -11,7 +11,8 @@ run: mvnrebuild
 runa: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=RABBITMQ_SENDER' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
+# support parameter like :8098/rabbitmq-producer/rabbitmq?msg=cool&exchange=jack
 curl:
-	curl http://localhost:$(PORT)/rabbitmq-webapp/rabbitmq
+	curl http://localhost:$(PORT)/rabbitmq-producer/rabbitmq
 
 .PHONY: run runpp curl
