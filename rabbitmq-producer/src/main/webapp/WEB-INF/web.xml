@@ -10,12 +10,22 @@
 
   <servlet>
     <servlet-name>rabbitmq</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.RabbitmqSender</servlet-class>
+    <servlet-class>com.jack.pinpoint.rabbitmq.RabbitmqSender</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>rabbitmq</servlet-name>
     <url-pattern>/rabbitmq</url-pattern>
   </servlet-mapping>
+
+    <servlet>
+        <servlet-name>topic</servlet-name>
+        <servlet-class>com.jack.pinpoint.rabbitmq.TopicSender</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>topic</servlet-name>
+        <url-pattern>/topic</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -15,4 +15,8 @@ runa: mvnrebuild config
 curl:
 	curl http://localhost:$(PORT)/rabbitmq-producer/rabbitmq
 
+# no exchange should be specified, for it sould match the consumer side
+curltopic:
+	curl http://localhost:$(PORT)/rabbitmq-producer/topic?msg=cool
+
 .PHONY: run runpp curl

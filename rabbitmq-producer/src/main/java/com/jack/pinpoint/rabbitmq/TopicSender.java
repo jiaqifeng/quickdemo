@@ -1,24 +1,21 @@
-package com.jack.pinpoint.jumper;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.concurrent.TimeoutException;
+package com.jack.pinpoint.rabbitmq;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-public class RabbitmqSender extends HttpServlet {
+/**
+ * Created by jack on 17-8-14.
+ */
+public class TopicSender  extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
@@ -29,31 +26,27 @@ public class RabbitmqSender extends HttpServlet {
 
         String exchange=req.getParameter("exchange");
         if (exchange==null || "".equals(exchange))
-            exchange="test-pp";
+            exchange="test-topic";
 
         String queuename=req.getParameter("queue");
         if (queuename==null || "".equals(queuename))
             queuename="queue-pp";
 
         try {
-            System.out.println("RabbitmqSender.doGet() ---- start");
-            System.out.println("RabbitmqSender.doGet() ---- exchange="+exchange+", queue="+queuename+", message="+message);
+            System.out.println("TopicSender.doGet() ---- start");
+            System.out.println("TopicSender.doGet() ---- exchange="+exchange+", queue="+queuename+", message="+message);
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
-            // enable below to test AutorecoveringChannel
-            factory.setAutomaticRecoveryEnabled(true);
 
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-            System.out.println("RabbitmqSender.doGet() ---- create channel is " + channel.getClass().getName());
+            System.out.println("TopicSender.doGet() ---- create channel is " + channel.getClass().getName());
 
-            channel.exchangeDeclare(exchange, "direct", false);
-            channel.queueDeclare(queuename, false, false, false, null);
-            channel.queueBind(queuename, exchange, "test");
+            channel.exchangeDeclare(exchange, "topic");
 
             AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
-            channel.basicPublish(exchange, "test", false, false, builder.appId("test").build(), message.getBytes());
-            System.out.println("RabbitmqSender.doGet() ---- Sent message:" + message);
+            channel.basicPublish(exchange, "test.topic", false, false, builder.appId("test").build(), message.getBytes());
+            System.out.println("TopicSender.doGet() ---- Sent message:" + message);
 
             channel.close();
             connection.close();
@@ -66,3 +59,4 @@ public class RabbitmqSender extends HttpServlet {
         out.println("send rabbitmq:" + message);
     }
 }
+

@@ -11,3 +11,9 @@ run: mvnrebuild
 
 runa: config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=rabbit-consumer1 -Dpinpoint.applicationName=RABBITMQ_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
+
+runt: config
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=rabbit-consumer1 -Dpinpoint.applicationName=RABBITMQ_TOPIC_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.TopicReceiver
+
+show:
+	@echo "MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=rabbit-consumer1 -Dpinpoint.applicationName=RABBITMQ_TOPIC_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.TopicReceiver"
