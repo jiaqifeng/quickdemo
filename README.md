@@ -37,8 +37,10 @@ tested.
 make curl2
 
 ## activemq `TODO`
+Run rabbitmq server on localhost, then run below app. Detail refer to Makefile in each app dir.
 
-Not tested after last refactor.
+rabbitmq-producer is a web app, access it to send a message to rabbitmq server.
+rabbitmq-consumer is java standalone app, receive messages from rabbitmq server.
 
 ## pinpointutils `TODO`
 some util formater to be used under hbase shell for pinpoint. Not include now.
