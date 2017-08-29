@@ -7,6 +7,7 @@ config:
 	sed -i 's/profiler.log4j.logging.transactioninfo=false/profiler.log4j.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
 	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
+	sed -i 's/profiler.attackchecker.file.pattern=/profiler.attackchecker.file.pattern=etc/' pinpoint-agent/pinpoint.config
 
 run: mvnrebuild config
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
@@ -20,8 +21,11 @@ ra:
 curl:
 	curl http://localhost:$(PORT)/echo/hello
 
-curl2:
+excep:
 	curl http://localhost:$(PORT)/echo/entry
+
+attack:
+	curl http://localhost:$(PORT)/echo/attack
 
 jetty:
 	mvn -f jettypom.xml jetty:run -Djetty.port=8099
