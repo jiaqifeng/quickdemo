@@ -1,12 +1,14 @@
+include ../common.gmk
+
 run: build
 	mvn tomcat:run -Dmaven.tomcat.port=8098
 
 build:
 	mvn clean compile
 
-runagent: build
+runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-1.5.2-SNAPSHOT.jar -Dpinpoint.agentId=kafkaP1 -Dpinpoint.applicationName=KAFKA_PRODUCER' mvn tomcat:run -Dmaven.tomcat.port=8098
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=kafkaP1 -Dpinpoint.applicationName=KAFKA_PRODUCER' mvn tomcat:run -Dmaven.tomcat.port=8098
 
 runagentbg: build stop
 	- rm pinpoint-agent/log/*

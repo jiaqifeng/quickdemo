@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 //require('/home/jack/work/pinpoint-node-agent')
-require('../../../pinpoint-node-agent')
+require('../pinpoint-node-agent')
 
 /**
  * Module dependencies.

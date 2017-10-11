@@ -22,6 +22,8 @@ public class ErrorServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        TestPrint tp = new TestPrint();
+
         System.out.println("-------------------------------------- do get");
         System.out.println("-------------------------------------- Runtime loader="+Runtime.getRuntime().getClass().getClassLoader()+",Runtime="+Runtime.getRuntime());
 
@@ -60,6 +62,11 @@ public class ErrorServlet extends HttpServlet {
         exec();
         PrintWriter out = response.getWriter();
         out.println("service it");
+    }
+    public static class TestPrint {
+        public TestPrint() {
+            System.out.println("this is TestPrint's constructor");
+        }
     }
 }
 
