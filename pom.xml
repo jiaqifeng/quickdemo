@@ -25,6 +25,7 @@
         <module>dubbo-echo-server</module>
         <module>cmdlinehello</module>
         <module>addressbook</module>
-	<module>mongodb</module>
+        <module>mongodb</module>
+        <module>mongodb-springboot</module>
     </modules>
 </project>
