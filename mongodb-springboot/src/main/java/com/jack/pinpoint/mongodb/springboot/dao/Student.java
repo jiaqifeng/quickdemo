@@ -1,7 +1,9 @@
 package com.jack.pinpoint.mongodb.springboot.dao;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="students")
 public class Student {
     @Id
     private String id;

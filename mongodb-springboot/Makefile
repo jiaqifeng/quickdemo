@@ -6,7 +6,7 @@ PORT=8091
 run: mvnrebuild
 	mvn spring-boot:run -Dmaven.tomcat.port=$(PORT)
 
-runa: mvnrebuild
+runa: mvnrebuild debuglog
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=SB-MongoClient' mvn spring-boot:run -Dmaven.tomcat.port=$(PORT)
 
 curl:

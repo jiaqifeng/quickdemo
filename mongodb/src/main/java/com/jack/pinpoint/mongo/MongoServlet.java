@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
@@ -54,7 +55,8 @@ public class MongoServlet extends HttpServlet {
                 System.out.println("-------------------------------------- insertMany");
                 mc.insertMany(users);
             } else if (op.equals("findone")) {
-                //Document user = mc.findOneAndDelete();
+                FindIterable<Document> it = mc.find(new Document("name", "jack"));
+                System.out.println("-------------------------------------- find one"+it.first().toString());
             }
         } catch (Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );

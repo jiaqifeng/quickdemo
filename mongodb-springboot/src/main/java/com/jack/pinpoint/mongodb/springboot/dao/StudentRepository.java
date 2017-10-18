@@ -1,10 +1,6 @@
 package com.jack.pinpoint.mongodb.springboot.dao;
 
-
-
 import org.springframework.data.mongodb.repository.MongoRepository;
-
- 
 
 /**
  * 继承自MongoRepository接口，MongoRepository接口包含了常用的CRUD操作，
