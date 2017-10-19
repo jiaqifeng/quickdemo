@@ -27,5 +27,6 @@
         <module>addressbook</module>
         <module>mongodb</module>
         <module>mongodb-springboot</module>
+        <module>vertx-echo</module>
     </modules>
 </project>
