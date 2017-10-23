@@ -6,11 +6,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import java.io.*;
 
 public class HttpClientServlet implements Servlet {
+    static Logger logger = LoggerFactory.getLogger(HttpClientServlet.class);
+
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");
     }
@@ -22,6 +26,7 @@ public class HttpClientServlet implements Servlet {
         String loginEntityContent="could not get "+url;
 
         System.out.println("service it");
+        logger.info(" -------------------- call echo using HttpClient --------------------");
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
