@@ -6,6 +6,7 @@ config:
 	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
 	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 	sed -i 's/profiler.async.runnablelist=$$/profiler.async.runnablelist=com.jack.pinpoint.jumper.AsyncServlet$$MyRunnable/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.logback.logging.transactioninfo=false/profiler.logback.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 
 run: mvnrebuild
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
