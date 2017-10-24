@@ -19,6 +19,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>httpclient3</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.HttpClient3Servlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>httpclient3</servlet-name>
+    <url-pattern>/httpclient3</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>jdkhttp</servlet-name>
     <servlet-class>com.jack.pinpoint.jumper.JDKHttpServlet</servlet-class>
   </servlet>
