@@ -1,6 +1,7 @@
 include ../common.gmk
 
 PORT=8097
+#for tomcat7 plugin, port is specified in pom.xml
 
 config:
 	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
@@ -9,9 +10,15 @@ config:
 	sed -i 's/profiler.logback.logging.transactioninfo=false/profiler.logback.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 
 run: mvnrebuild
-	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
+	mvn tomcat7:run
 
 runa: mvnrebuild config
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat7:run
+
+run6: mvnrebuild
+	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
+
+runa6: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
 curl:
@@ -28,6 +35,9 @@ c4:
 
 ca:
 	curl http://localhost:$(PORT)/jumper/async
+
+cal:
+	curl http://localhost:$(PORT)/jumper/asynclong
 
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
