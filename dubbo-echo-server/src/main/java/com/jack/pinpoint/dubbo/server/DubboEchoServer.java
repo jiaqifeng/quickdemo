@@ -8,7 +8,9 @@ public class DubboEchoServer {
                 new String[] { "applicationProvider.xml" });
 
         context.start();
-        System.out.println("press any key to exist");
-        System.in.read();
+        while (true) {
+            //System.out.println("press any key to exist");
+            System.in.read();
+        }
     }
 }
