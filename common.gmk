@@ -9,6 +9,11 @@ debug:
 mvnrebuild:
 	mvn clean compile
 
+logplugin:
+	sed -i 's/profiler.logback.logging.transactioninfo=false/profiler.logback.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.log4j.logging.transactioninfo=false/profiler.log4j.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.sampling.rate=1$$/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
+	
 # add Launcher as main class of mvn tomcat
 copy:
 	-rm -r pinpoint-agent
