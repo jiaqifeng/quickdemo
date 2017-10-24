@@ -23,7 +23,7 @@ public class JDKHttpServlet implements Servlet {
         // comment out try when test exception without echo app
 	    try {
 
-            URL url = new URL("http://www.sohu.com/");
+            URL url = new URL("http://localhost:8099/echo/hello");
             HttpURLConnection conn = (HttpURLConnection )url.openConnection();
 
             conn.setDoOutput(true);
