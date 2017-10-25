@@ -29,6 +29,36 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ning</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.NingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ning</servlet-name>
+    <url-pattern>/ning</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>oke</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkExecuteServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>oke</servlet-name>
+    <url-pattern>/oke</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>okq</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkEnqueueServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>okq</servlet-name>
+    <url-pattern>/okq</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>jdkhttp</servlet-name>
     <servlet-class>com.jack.pinpoint.jumper.JDKHttpServlet</servlet-class>
   </servlet>
