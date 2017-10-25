@@ -21,6 +21,8 @@ public class AsyncLongRunningServlet extends HttpServlet {
 				+ Thread.currentThread().getName() + "::ID="
 				+ Thread.currentThread().getId());
 
+		new Exception("fengjiaqi: -------------------- in async main process").printStackTrace();
+
 		request.setAttribute("org.apache.catalina.ASYNC_SUPPORTED", true);
 
 		String time = request.getParameter("time");
