@@ -14,11 +14,14 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RabbitmqSender extends HttpServlet {
+    static Logger logger = LoggerFactory.getLogger(RabbitmqSender.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
@@ -36,7 +39,7 @@ public class RabbitmqSender extends HttpServlet {
             queuename="queue-pp";
 
         try {
-            System.out.println("RabbitmqSender.doGet() ---- start");
+            logger.info("RabbitmqSender.doGet() -------- start");
             System.out.println("RabbitmqSender.doGet() ---- exchange="+exchange+", queue="+queuename+", message="+message);
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
