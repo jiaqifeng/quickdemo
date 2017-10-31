@@ -9,7 +9,7 @@ sd:
 run: mvnrebuild
 	mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
 
-runa: config
+runa: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=rabbit-consumer1 -Dpinpoint.applicationName=RABBITMQ_CONSUMER' mvn exec:java -Dexec.mainClass=com.jack.exapmle.rabbitmq.Receiver
 
 runt: config
