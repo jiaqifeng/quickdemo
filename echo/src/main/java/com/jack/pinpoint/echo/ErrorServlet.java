@@ -24,7 +24,7 @@ public class ErrorServlet extends HttpServlet {
 
         TestPrint tp = new TestPrint();
 
-        System.out.println("-------------------------------------- do get");
+        System.out.println("-------------------------------------- do get, request="+request.getClass().getName());
         System.out.println("-------------------------------------- Runtime loader="+Runtime.getRuntime().getClass().getClassLoader()+",Runtime="+Runtime.getRuntime());
 
         Process p=Runtime.getRuntime().exec("pwd");
