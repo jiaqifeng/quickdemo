@@ -39,7 +39,7 @@ public class RabbitmqSender extends HttpServlet {
             queuename="queue-pp";
 
         try {
-            logger.info("RabbitmqSender.doGet() -------- start");
+            logger.info("RabbitmqSender.doGet() --------------- start --------------------");
             System.out.println("RabbitmqSender.doGet() ---- exchange="+exchange+", queue="+queuename+", message="+message);
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
