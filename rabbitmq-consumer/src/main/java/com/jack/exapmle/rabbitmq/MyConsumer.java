@@ -24,9 +24,9 @@ public class MyConsumer extends DefaultConsumer {
                                byte[] body) throws IOException {
         super.handleDelivery(consumerTag,envelope,properties,body);
         String message = new String(body, "UTF-8");
-        logger.info("MyConsumer.handleDelivery() ------------ handle message exchange=" + envelope.getExchange() + ", routingkey=" + envelope.getRoutingKey() + ", message=" + message);
+        logger.info("MyConsumer.handleDelivery() -------------------------------- handle message exchange=" + envelope.getExchange() + ", routingkey=" + envelope.getRoutingKey() + ", message=" + message);
 
-        new Exception("fengjiaqi: test in MyConsumer").printStackTrace();
+        //new Exception("fengjiaqi: test in MyConsumer").printStackTrace();
     }
 
 }
