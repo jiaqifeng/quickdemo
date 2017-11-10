@@ -59,6 +59,26 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ggs</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.GoogleHttpClientSyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ggs</servlet-name>
+    <url-pattern>/ggs</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gga</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.GoogleHttpClientAsyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>gga</servlet-name>
+    <url-pattern>/gga</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>jdkhttp</servlet-name>
     <servlet-class>com.jack.pinpoint.jumper.JDKHttpServlet</servlet-class>
   </servlet>

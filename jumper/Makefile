@@ -4,8 +4,6 @@ PORT=8097
 #for tomcat7 plugin, port is specified in pom.xml
 
 config:
-	#sed -i 's/profiler.sampling.rate=1/profiler.sampling.rate=2/' pinpoint-agent/pinpoint.config
-	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 	sed -i 's/profiler.async.runnablelist=$$/profiler.async.runnablelist=com.jack.pinpoint.jumper.AsyncServlet$$MyRunnable/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.logback.logging.transactioninfo=false/profiler.logback.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 
@@ -21,25 +19,42 @@ run6: mvnrebuild
 runa6: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
+runhttp4a: config
+	mvn clean
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn -f httpclient4.pom.xml tomcat7:run
+
 curl:
 	curl http://localhost:$(PORT)/jumper/httpclient
 
-c2:
+jdk:
 	curl http://localhost:$(PORT)/jumper/jdkhttp
 
-c3:
+hys:
 	curl http://localhost:$(PORT)/jumper/hystrix
 
-c4:
+thr:
 	curl http://localhost:$(PORT)/jumper/thrift
 
-ca:
+asy:
 	curl http://localhost:$(PORT)/jumper/async
 
-cal:
+asyl:
 	curl http://localhost:$(PORT)/jumper/asynclong
 
-# other curl: okq, oke
+ning:
+	curl http://localhost:$(PORT)/jumper/ning
+
+oke:
+	curl http://localhost:$(PORT)/jumper/oke #okhttp execute
+
+okq:
+	curl http://localhost:$(PORT)/jumper/okq 
+
+ggs:
+	curl http://localhost:$(PORT)/jumper/ggs
+
+gga:
+	curl http://localhost:$(PORT)/jumper/gga
 
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
