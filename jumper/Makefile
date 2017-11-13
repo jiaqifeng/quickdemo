@@ -19,6 +19,10 @@ run6: mvnrebuild
 runa6: mvnrebuild config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
+runhttp4: config
+	mvn -f httpclient4.pom.xml clean compile 
+	mvn -f httpclient4.pom.xml tomcat7:run
+
 runhttp4a: config
 	mvn clean
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn -f httpclient4.pom.xml tomcat7:run

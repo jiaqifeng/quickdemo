@@ -55,6 +55,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpasyncclient</artifactId>
+      <version>4.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.ning</groupId>
       <artifactId>async-http-client</artifactId>
       <version>1.8.16</version>
@@ -123,9 +129,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
         <configuration>
           <excludes>
-            <exclude>**/HttpClient3Servlet.java</exclude>
+            <exclude>**/GoogleHttpClientSyncServlet.java</exclude>
+            <exclude>**/HttpClientThirdServlet.java</exclude>
+            <exclude>**/GoogleHttpClientAsyncServlet.java</exclude>
           </excludes>
         </configuration>
       </plugin>
