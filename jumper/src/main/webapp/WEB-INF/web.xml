@@ -79,6 +79,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>hc4a</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.HttpClient4AsyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>hc4a</servlet-name>
+    <url-pattern>/hc4a</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>jdkhttp</servlet-name>
     <servlet-class>com.jack.pinpoint.jumper.JDKHttpServlet</servlet-class>
   </servlet>

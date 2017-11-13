@@ -60,6 +60,9 @@ ggs:
 gga:
 	curl http://localhost:$(PORT)/jumper/gga
 
+hc4a:
+	curl http://localhost:$(PORT)/jumper/hc4a
+
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
 
