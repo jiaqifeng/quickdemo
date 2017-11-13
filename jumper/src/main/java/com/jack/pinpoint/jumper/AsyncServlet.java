@@ -6,6 +6,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,8 @@ import java.io.PrintWriter;
  * Created by jack on 17-6-2.
  */
 public class AsyncServlet extends HttpServlet {
+    static Logger logger = LoggerFactory.getLogger(AsyncServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,6 +40,7 @@ public class AsyncServlet extends HttpServlet {
 
         public void run() {
             System.out.println("---------- fengjiaqi: MyRunnable start to run");
+            logger.info(" -------------------------------- MyRunnable start to run ---------------------");
 
             String url="http://localhost:8099/echo/hello";
             String loginEntityContent="could not get "+url;
