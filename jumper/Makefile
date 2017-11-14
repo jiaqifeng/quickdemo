@@ -4,28 +4,28 @@ PORT=8097
 #for tomcat7 plugin, port is specified in pom.xml
 
 config:
-	sed -i 's/profiler.async.runnablelist=$$/profiler.async.runnablelist=com.jack.pinpoint.jumper.AsyncServlet$$MyRunnable/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.async.classlist=$$/profiler.async.classlist=com.jack.pinpoint.jumper.AsyncServlet$$MyRunnable/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.logback.logging.transactioninfo=false/profiler.logback.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
 
-run: mvnrebuild
+run: update-webxml-tomcat mvnrebuild
 	mvn tomcat7:run
 
-runa: mvnrebuild config
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat7:run
+runa: update-webxml-tomcat mvnrebuild config
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat7:run
 
-run6: mvnrebuild
+run6: update-webxml-tomcat mvnrebuild
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
-runa6: mvnrebuild config
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
+runa6: update-webxml-tomcat mvnrebuild config
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=Jumper' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
-runhttp4: config
+runhttp4: update-webxml-tomcat config
 	mvn -f httpclient4.pom.xml clean compile 
 	mvn -f httpclient4.pom.xml tomcat7:run
 
-runhttp4a: config
-	mvn clean
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=Jumper' mvn -f httpclient4.pom.xml tomcat7:run
+runhttp4a: update-webxml-tomcat config
+	mvn -f httpclient4.pom.xml clean compile
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=Jumper' mvn -f httpclient4.pom.xml tomcat7:run
 
 curl:
 	curl http://localhost:$(PORT)/jumper/httpclient
@@ -66,11 +66,20 @@ hc4a:
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
 
-jetty:
+update-webxml-tomcat:
+	if ! diff --brief src/main/webapp/WEB-INF/web.xml src/main/webapp/WEB-INF/web.xml.tomcat; then cp src/main/webapp/WEB-INF/web.xml.tomcat src/main/webapp/WEB-INF/web.xml; fi
+
+update-webxml-jetty:
+	if ! diff --brief src/main/webapp/WEB-INF/web.xml src/main/webapp/WEB-INF/web.xml.jetty; then cp src/main/webapp/WEB-INF/web.xml.jetty src/main/webapp/WEB-INF/web.xml; fi
+
+jetty: update-webxml-jetty
+	cp src/main/webapp/WEB-INF/web.xml.jetty src/main/webapp/WEB-INF/web.xml
+	mvn -f jettypom.xml clean compile
 	mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
 
-jettya:
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=JumperJetty' mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
+jettya: update-webxml-jetty
+	mvn -f jettypom.xml clean compile
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=JumperJetty' mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
 
 .PHONY: run runpp curl
 

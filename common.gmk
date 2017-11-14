@@ -29,3 +29,9 @@ copy:
 debuglog:
 	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 
+ff:
+	sed -i 's/profiler.sampling.disableid.propagate=true/profiler.sampling.disableid.propagate=false/' pinpoint-agent/pinpoint.config
+
+tt:
+	sed -i 's/profiler.sampling.disableid.propagate=false/profiler.sampling.disableid.propagate=true/' pinpoint-agent/pinpoint.config
+

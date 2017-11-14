@@ -41,7 +41,7 @@ public class HttpClient4AsyncServlet extends HttpServlet {
         httpClient.start();
 
         try {
-            HttpPost httpRequest = new HttpPost("http://www.naver.com/");
+            HttpPost httpRequest = new HttpPost("http://localhost:8099/echo/hello");
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("param1", "value1"));

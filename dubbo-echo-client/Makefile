@@ -10,7 +10,7 @@ run:build
 
 runa: build
 	- rm pinpoint-agent/log/*
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=localhost-$(PORT) -Dpinpoint.applicationName=DUBBO_CLIENT' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
+	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=dubbo-client-$(PORT) -Dpinpoint.applicationName=DUBBO_CLIENT' mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
 
 curl:
 	curl http://localhost:$(PORT)/echo-client/dubbo
