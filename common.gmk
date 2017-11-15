@@ -35,3 +35,7 @@ ff:
 tt:
 	sed -i 's/profiler.sampling.disableid.propagate=false/profiler.sampling.disableid.propagate=true/' pinpoint-agent/pinpoint.config
 
+copysky:
+	-rm -r skywalking-agent
+	-mkdir skywalking-agent
+	cp -r /media/c/work/skywalking/skywalking/packages/skywalking-agent ./

@@ -49,3 +49,6 @@ curl3:
 
 .PHONY: run runpp curl
 
+runsky: 
+	sed -i 's/agent.application_code=Your_ApplicationName$$/agent.application_code=echo-sky/' skywalking-agent/config/agent.config
+	MAVEN_OPTS='-javaagent:./skywalking-agent/skywalking-agent.jar' mvn tomcat7:run -Dmaven.tomcat.port=$(PORT) -Dskywalking.agent.application_code=echo-sky

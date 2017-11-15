@@ -95,3 +95,8 @@ rb: stop
 
 rab: stop
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' nohup mvn tomcat:run -Dmaven.tomcat.port=8097 &> tomcat.log & echo $$! > tomcat.pid
+
+runsky: update-webxml-tomcat config
+	mvn -f httpclient4.pom.xml clean compile
+	sed -i 's/agent.application_code=Your_ApplicationName$$/agent.application_code=jumper-sky/' skywalking-agent/config/agent.config
+	MAVEN_OPTS='-javaagent:./skywalking-agent/skywalking-agent.jar' mvn -f httpclient4.pom.xml tomcat7:run -Dmaven.tomcat.port=$(PORT) -Dskywalking.agent.application_code=jumper-sky
