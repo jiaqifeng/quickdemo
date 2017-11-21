@@ -29,6 +29,7 @@ jetty:
 	mvn -f jettypom.xml jetty:run -Djetty.port=8099
 
 jettya:
+	mvn -f jettypom.xml clean compile
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=echo-$(PORT) -Dpinpoint.applicationName=EchoJetty' mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
 
 # package a executable jar
