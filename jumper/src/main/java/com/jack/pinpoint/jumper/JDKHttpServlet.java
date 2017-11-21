@@ -1,6 +1,8 @@
 package com.jack.pinpoint.jumper;
 
 import org.apache.http.HttpEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import java.io.*;
@@ -9,6 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class JDKHttpServlet implements Servlet {
+    static Logger logger = LoggerFactory.getLogger(JDKHttpServlet.class);
+
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");
     }
@@ -20,6 +24,7 @@ public class JDKHttpServlet implements Servlet {
 
         PrintWriter pw=resp.getWriter();
 
+        logger.info(" -------------------- call echo using jdkHttp --------------------");
         // comment out try when test exception without echo app
 	    try {
 

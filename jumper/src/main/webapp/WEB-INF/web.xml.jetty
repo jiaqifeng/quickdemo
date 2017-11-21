@@ -10,7 +10,7 @@
 
   <servlet>
     <servlet-name>httpclient</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.HttpClientServlet</servlet-class>
+    <servlet-class>com.jack.pinpoint.jumper.HttpClient4SyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -29,23 +29,23 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>oke</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.OkExecuteServlet</servlet-class>
+    <servlet-name>oks</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkSyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>oke</servlet-name>
-    <url-pattern>/oke</url-pattern>
+    <servlet-name>oks</servlet-name>
+    <url-pattern>/oks</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>okq</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.OkEnqueueServlet</servlet-class>
+    <servlet-name>oka</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkAsyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>okq</servlet-name>
-    <url-pattern>/okq</url-pattern>
+    <servlet-name>oka</servlet-name>
+    <url-pattern>/oka</url-pattern>
   </servlet-mapping>
 
   <servlet>

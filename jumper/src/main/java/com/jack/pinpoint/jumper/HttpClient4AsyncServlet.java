@@ -35,7 +35,7 @@ public class HttpClient4AsyncServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
             throws ServletException, IOException {
-        logger.info(" -------------------- call HttpClient 4 async --------------------");
+        logger.info(" -------------------- call echo using HttpClient 4 async --------------------");
 
         CloseableHttpAsyncClient httpClient = HttpAsyncClients.custom().useSystemProperties().build();
         httpClient.start();

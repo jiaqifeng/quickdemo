@@ -9,23 +9,33 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>httpclient</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.HttpClientServlet</servlet-class>
+    <servlet-name>hc4s</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.HttpClient4SyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>httpclient</servlet-name>
-    <url-pattern>/httpclient</url-pattern>
+    <servlet-name>hc4s</servlet-name>
+    <url-pattern>/hc4s</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>httpclient3</servlet-name>
+    <servlet-name>hc4a</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.HttpClient4AsyncServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>hc4a</servlet-name>
+    <url-pattern>/hc4a</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>hc3</servlet-name>
     <servlet-class>com.jack.pinpoint.jumper.HttpClient3Servlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>httpclient3</servlet-name>
-    <url-pattern>/httpclient3</url-pattern>
+    <servlet-name>hc3</servlet-name>
+    <url-pattern>/hc3</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -39,23 +49,23 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>oke</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.OkExecuteServlet</servlet-class>
+    <servlet-name>oks</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkSyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>oke</servlet-name>
-    <url-pattern>/oke</url-pattern>
+    <servlet-name>oks</servlet-name>
+    <url-pattern>/oks</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>okq</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.OkEnqueueServlet</servlet-class>
+    <servlet-name>oka</servlet-name>
+    <servlet-class>com.jack.pinpoint.jumper.OkAsyncServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>okq</servlet-name>
-    <url-pattern>/okq</url-pattern>
+    <servlet-name>oka</servlet-name>
+    <url-pattern>/oka</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -76,16 +86,6 @@
   <servlet-mapping>
     <servlet-name>gga</servlet-name>
     <url-pattern>/gga</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>hc4a</servlet-name>
-    <servlet-class>com.jack.pinpoint.jumper.HttpClient4AsyncServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>hc4a</servlet-name>
-    <url-pattern>/hc4a</url-pattern>
   </servlet-mapping>
 
   <servlet>

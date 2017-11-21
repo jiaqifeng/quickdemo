@@ -19,9 +19,11 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.squareup.okhttp.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GoogleHttpClientAsyncServlet extends HttpServlet {
+        static Logger logger = LoggerFactory.getLogger(GoogleHttpClientAsyncServlet.class);
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse response)
@@ -29,18 +31,21 @@ public class GoogleHttpClientAsyncServlet extends HttpServlet {
                 String url="http://localhost:8099/echo/hello";
                 String msg="failed";
 
+                logger.info(" -------------------- call echo using GoogleHttpClient async --------------------");
+
                 HttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport();
                 HttpRequestFactory requestFactory = NET_HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
                         public void initialize(HttpRequest request) {
                         }
                 });
 
+
                 GenericUrl gurl = new GenericUrl(url);
                 HttpRequest request = null;
                 HttpResponse resp = null;
                 try {
                         request = requestFactory.buildGetRequest(gurl);
-                        resp = request.execute();
+                        resp = request.executeAsync().get();
 
                         InputStream ins = resp.getContent();
                         int count = 10;
@@ -52,7 +57,7 @@ public class GoogleHttpClientAsyncServlet extends HttpServlet {
                         msg = new String(buf);
 
                         resp.disconnect();
-                } catch (IOException ignored) {
+                } catch (Exception ignored) {
                 } finally {
                         if (resp != null) {
                                 resp.disconnect();

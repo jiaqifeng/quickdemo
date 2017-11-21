@@ -28,7 +28,13 @@ runhttp4a: update-webxml-tomcat config
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=Jumper' mvn -f httpclient4.pom.xml tomcat7:run
 
 curl:
-	curl http://localhost:$(PORT)/jumper/httpclient
+	curl http://localhost:$(PORT)/jumper/hc3
+
+hc4a:
+	curl http://localhost:$(PORT)/jumper/hc4a
+
+hc4s:
+	curl http://localhost:$(PORT)/jumper/hc4s
 
 jdk:
 	curl http://localhost:$(PORT)/jumper/jdkhttp
@@ -48,20 +54,17 @@ asyl:
 ning:
 	curl http://localhost:$(PORT)/jumper/ning
 
-oke:
-	curl http://localhost:$(PORT)/jumper/oke #okhttp execute
+oks:
+	curl http://localhost:$(PORT)/jumper/oks
 
-okq:
-	curl http://localhost:$(PORT)/jumper/okq 
+oka:
+	curl http://localhost:$(PORT)/jumper/oka
 
 ggs:
 	curl http://localhost:$(PORT)/jumper/ggs
 
 gga:
 	curl http://localhost:$(PORT)/jumper/gga
-
-hc4a:
-	curl http://localhost:$(PORT)/jumper/hc4a
 
 thrift:
 	cd src/main; thrift -r -gen java thrift/my.thrift ; cp ./gen-java/com/jack/maven/webapp/*.java ./java/com/jack/pinpoint/jumper/; cd ../..
@@ -82,21 +85,3 @@ jettya: update-webxml-jetty
 	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar $(AGENT_ARGS) -Dpinpoint.agentId=jumper-$(PORT) -Dpinpoint.applicationName=JumperJetty' mvn -f jettypom.xml jetty:run -Djetty.port=$(PORT)
 
 .PHONY: run runpp curl
-
-#######################################
-# run background, not used any more
-
-stop:
-	- if [ -f tomcat.pid ]; then kill `cat tomcat.pid` || rm tomcat.pid; fi
-#	- if [ -f tomcat.log ]; then rm tomcat.log; fi
-
-rb: stop
-	nohup mvn tomcat:run -Dmaven.tomcat.port=$(PORT) &> tomcat.log & echo $$! > tomcat.pid
-
-rab: stop
-	MAVEN_OPTS='-javaagent:./pinpoint-agent/pinpoint-bootstrap-$(AGENT_VERSION).jar -Dpinpoint.agentId=jumper1 -Dpinpoint.applicationName=Jumper' nohup mvn tomcat:run -Dmaven.tomcat.port=8097 &> tomcat.log & echo $$! > tomcat.pid
-
-runsky: update-webxml-tomcat config
-	mvn -f httpclient4.pom.xml clean compile
-	sed -i 's/agent.application_code=Your_ApplicationName$$/agent.application_code=jumper-sky/' skywalking-agent/config/agent.config
-	MAVEN_OPTS='-javaagent:./skywalking-agent/skywalking-agent.jar' mvn -f httpclient4.pom.xml tomcat7:run -Dmaven.tomcat.port=$(PORT) -Dskywalking.agent.application_code=jumper-sky

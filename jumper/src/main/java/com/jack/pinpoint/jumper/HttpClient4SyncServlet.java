@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import java.io.*;
 
-public class HttpClientServlet implements Servlet {
-    static Logger logger = LoggerFactory.getLogger(HttpClientServlet.class);
+public class HttpClient4SyncServlet implements Servlet {
+    static Logger logger = LoggerFactory.getLogger(HttpClient4SyncServlet.class);
 
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");

@@ -2,12 +2,6 @@ package com.jack.pinpoint.jumper;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +18,7 @@ import java.util.concurrent.Future;
  * Created by jack on 17-10-25.
  */
 public class NingServlet implements Servlet {
-    static Logger logger = LoggerFactory.getLogger(HttpClientServlet.class);
+    static Logger logger = LoggerFactory.getLogger(HttpClient4SyncServlet.class);
 
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");

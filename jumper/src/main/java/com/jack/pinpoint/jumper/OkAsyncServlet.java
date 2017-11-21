@@ -13,15 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.rmi.server.ExportException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by jack on 17-10-25.
  */
-public class OkEnqueueServlet extends HttpServlet {
-    static Logger logger = LoggerFactory.getLogger(HttpClientServlet.class);
+public class OkAsyncServlet extends HttpServlet {
+    static Logger logger = LoggerFactory.getLogger(OkAsyncServlet.class);
     //volatile String result;
     String result;
 
@@ -32,7 +31,7 @@ public class OkEnqueueServlet extends HttpServlet {
 
         Request request = new Request.Builder().url(url).build();
         OkHttpClient client = new OkHttpClient();
-        logger.info(" -------------------- call echo using OkHttpClient.enqueue --------------------");
+        logger.info(" -------------------- call echo using OkHttpClient async --------------------");
 
         // we have to use a latch, or the response may be closed before the Callback
         final CountDownLatch latch = new CountDownLatch(1);
@@ -52,14 +51,14 @@ public class OkEnqueueServlet extends HttpServlet {
                  * not like nodejs which is auto treated as closure, so I make result a outer class field.
                  */
                 //latch.countDown();
-                logger.info(" -------------------- call echo using OkHttpClient.enqueue onFailure --------------------");
+                logger.info(" -------------------- call using OkHttpClient.enqueue onFailure --------------------");
                 result = "failed";
                 latch.countDown();
             }
 
             public void onResponse(Response resp) throws IOException {
                 //latch.countDown();
-                logger.info(" -------------------- call echo using OkHttpClient.enqueue onResponse --------------------");
+                logger.info(" -------------------- call using OkHttpClient.enqueue onResponse --------------------");
                 result = resp.body().string();
                 latch.countDown();
             }

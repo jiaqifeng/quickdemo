@@ -1,5 +1,6 @@
 package com.jack.pinpoint.jumper;
 
+// below is httpclient3 class
 //import org.apache.http.HttpEntity;
 import org.apache.commons.httpclient.HttpClient;
 //import org.apache.http.client.methods.HttpGet;
@@ -14,8 +15,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import java.io.*;
 
-public class HttpClientThirdServlet implements Servlet {
-    static Logger logger = LoggerFactory.getLogger(HttpClientThirdServlet.class);
+public class HttpClient3Servlet implements Servlet {
+    static Logger logger = LoggerFactory.getLogger(HttpClient3Servlet.class);
 
     public void init(ServletConfig pa) throws ServletException {
         System.out.println("init");
