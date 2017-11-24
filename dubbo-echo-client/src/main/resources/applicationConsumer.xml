@@ -14,5 +14,5 @@
     <dubbo:registry address="multicast://224.5.6.7:1234" />
     <dubbo:consumer timeout="5000" />
     <!-- which service to consume? -->
-    <dubbo:reference id="echoService" interface="com.jack.pinpoint.dubbo.server.EchoService"/>
+    <dubbo:reference id="echoService" interface="com.jack.pinpoint.dubbo.server.EchoService" loadbalance="roundrobin"/>
 </beans>

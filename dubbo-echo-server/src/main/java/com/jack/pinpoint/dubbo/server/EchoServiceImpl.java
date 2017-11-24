@@ -12,7 +12,8 @@ public class EchoServiceImpl implements EchoService {
         logger.info(" -------------------- handle message --------------------");
 
         //long time will cause dubbo client to try again
-        //try {Thread.sleep(1000 * 100);} catch (InterruptedException e) {};
+        if (System.getProperty("sleeplong") != null)
+            try {Thread.sleep(1000 * 300);} catch (InterruptedException e) {};
 	
         return "echo:"+msg ;
     }
