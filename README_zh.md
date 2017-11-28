@@ -45,25 +45,31 @@ jumper和echo默认用tomcat启动, **make jettya**则使用jetty启动
 
 ![topology](doc/jumper-echo-map.png)
 
-### make目标和使用的库
+### jumper的make目标和对应的库
 
-**make ggs** start a transaction using google client sync call
+**make ggs** 使用google client的同步调用
 
-**make gga** start a transaction using google client async call
+**make gga** 使用google client的异步调用
 
-**make hc3** start a transaction using http client 3 sync call
+**make hc3** 使用http client 3的同步调用
 
-**make hc3s** start a transaction using http client 4 sync call
+**make hc3s** 使用http client 4的同步调用
 
-**make hc3a** start a transaction using http client 4 async call
+**make hc3a** 使用http client 4的异步调用
 
-**make jdk** start a transaction using jdk httpConection
+**make jdk** 使用jdk自带的HttpConection
 
-**make ning** start a transaction using ning client call
+**make ning** 使用ning client
 
-**make oks** start a transaction using ok http client sync call
+**make oks** 使用ok http client的同步调用
 
-**make oka** start a transaction using ok http client async call
+**make oka** 使用ok http client的异步调用
+
+### echo的make目录
+
+**make curl** 基本的servlet
+
+**make attack** 模拟注入攻击
 
 ## dubbo client and server
 
