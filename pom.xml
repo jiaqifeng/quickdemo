@@ -12,7 +12,6 @@
         <module>echo</module>
         <module>jumper</module>
         <module>kafka-java-examples</module>
-        <module>echoweb-log4j</module>
         <module>kafka-message-wrapper</module>
         <module>kafkaproducerwebapp</module>
         <module>rabbitmq-consumer</module>
@@ -28,5 +27,6 @@
         <module>mongodb</module>
         <module>mongodb-springboot</module>
         <module>vertx-echo</module>
+        <module>embedqpid</module>
     </modules>
 </project>

@@ -3,17 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.jack</groupId>
-    <artifactId>quickdemo</artifactId>
+    <groupId>com.jack.pinpoint</groupId>
+    <artifactId>demoapp</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.jack.pinpoint.springkafka</groupId>
-  <artifactId>consumer</artifactId>
+  <artifactId>spring-kafka-consumer</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-
-  <name>spring-kafka consumer console application for test pinpoint</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

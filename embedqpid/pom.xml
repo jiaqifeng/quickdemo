@@ -8,10 +8,9 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
     
-  <artifactId>embedqpid</artifactId>
+  <artifactId>embedqpid-server</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>embedqpid server for integration test rabbitmq client</name>
 
   <properties>
     <slf4j.version>1.7.5</slf4j.version>

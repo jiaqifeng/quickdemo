@@ -8,10 +8,9 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
     
-  <artifactId>echo</artifactId>
+  <artifactId>echo-servlet</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>echo-web server</name>
 
   <properties>
     <slf4j.version>1.7.5</slf4j.version>

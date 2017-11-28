@@ -12,6 +12,8 @@
 
 # 通用操作
 
+在运行各app前请在根目录下执行一次mvn clean install.
+
 在每个app的目录下,都通过相应的Makefile完成通用的操作.
 
 ## 根目录下的common.gmk
@@ -53,9 +55,9 @@ jumper和echo默认用tomcat启动, **make jettya**则使用jetty启动
 
 **make hc3** 使用http client 3的同步调用
 
-**make hc3s** 使用http client 4的同步调用
+**make hc4s** 使用http client 4的同步调用
 
-**make hc3a** 使用http client 4的异步调用
+**make hc4a** 使用http client 4的异步调用
 
 **make jdk** 使用jdk自带的HttpConection
 
