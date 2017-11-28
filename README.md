@@ -1,3 +1,5 @@
+[中文](README_zh.md)
+
 # pinpoint demo apps
 Provide some demo app for test pinpoint.
 
