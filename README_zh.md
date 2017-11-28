@@ -6,6 +6,8 @@
 
 仅在Linux下测试.Windows下可使用cygwin环境(需要使用make命令).
 
+需要使用JDK 1.7及以上版本.
+
 # 项目结构
 
 每个子目录是一个独立的app,基于Java或nodejs.

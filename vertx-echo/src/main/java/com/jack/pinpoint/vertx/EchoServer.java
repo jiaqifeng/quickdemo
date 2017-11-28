@@ -3,7 +3,9 @@ package com.jack.pinpoint.vertx;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.Handler;
 
 public class EchoServer extends AbstractVerticle {
     public static void main(String[] args) {
@@ -24,15 +26,18 @@ public class EchoServer extends AbstractVerticle {
          */
         HttpServer server = Vertx.vertx().createHttpServer();
 
-        server.requestHandler(request -> {
+        server.requestHandler(new Handler<HttpServerRequest>() {
 
-            // This handler gets called for each request that arrives on the
-            // server
-            HttpServerResponse response = request.response();
-            response.putHeader("content-type", "text/plain");
+            public void handle(HttpServerRequest request) {
 
-            // Write to the response and end it
-            response.end("Hello vertx!");
+                // This handler gets called for each request that arrives on the
+                // server
+                HttpServerResponse response = request.response();
+                response.putHeader("content-type", "text/plain");
+
+                // Write to the response and end it
+                response.end("Hello vertx!");
+            }
         });
 
         server.listen(8070);

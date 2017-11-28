@@ -5,6 +5,8 @@ Demo apps for test pinpoint. Also for skywalking and zipkin.
 
 Only tested under linux. Cygwin needed for make under windows.
 
+JDK 1.7 above is needed.
+
 # directory layout
 
 each sub-directory is an app based on java or nodejs.

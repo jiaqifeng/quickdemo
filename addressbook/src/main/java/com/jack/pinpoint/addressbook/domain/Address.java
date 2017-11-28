@@ -1,6 +1,5 @@
 package com.jack.pinpoint.addressbook.domain;
 
-import com.sun.scenario.effect.Merge;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
