@@ -5,7 +5,7 @@ PORT=8099
 config:
 	sed -i 's/^profiler.entrypoint=$$/profiler.entrypoint=com.jack.pinpoint.echo.EntryPoint.myEntryPoint,com.jack.pinpoint.echo.ThriftServlet.doTalkService,java.lang.Runtime.exec,com.jack.pinpoint.echo.ErrorServlet.exec/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.log4j.logging.transactioninfo=false/profiler.log4j.logging.transactioninfo=true/' pinpoint-agent/pinpoint.config
-	sed -i 's/profiler.attackchecker.file.pattern=$$/profiler.attackchecker.file.pattern=\/etc/' pinpoint-agent/pinpoint.config
+	sed -i 's/profiler.attackchecker.file.pattern=$$/profiler.attackchecker.file.pattern=etc.*le,M.*new/' pinpoint-agent/pinpoint.config
 
 run: mvnrebuild
 	mvn tomcat:run -Dmaven.tomcat.port=$(PORT)
