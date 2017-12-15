@@ -8,8 +8,6 @@ struct TAttackInfo {
 
   5: optional string rpc
   6: optional string host
-  7: optional string transactionId
-  8: optional i64 spanId
 }
 
   

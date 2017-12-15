@@ -1,7 +1,12 @@
 # extrace pinpoint version
 PINPOINT_BASE=../../pinpoint
 AGENT_VERSION=$(shell grep quickstart.version $(PINPOINT_BASE)/quickstart/conf/quickstart.properties | sed 's/quickstart.version=//g' )
+
+# enable or disable download agent config from config center, uncomment one line of below 2 lines
+# disable agent to connect to config center
 AGENT_ARGS=-Dpinpoint.configcenter=false
+# endable agent connect config center and set module name
+#AGENT_ARGS=-Dpinpoint.configcenter.module=feng-pinpoint-java-agent
 
 debug:
 	@echo $(AGENT_VERSION)
@@ -25,7 +30,7 @@ copy:
 	sed -i 's/profiler.collector.stat.port=9995/profiler.collector.stat.port=29995/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.collector.tcp.port=9994/profiler.collector.tcp.port=29994/' pinpoint-agent/pinpoint.config
 	sed -i 's/profiler.attackchecker.udp.port=9997/profiler.attackchecker.udp.port=29993/' pinpoint-agent/pinpoint.config
-	
+
 debuglog:
 	sed -i 's/INFO/DEBUG/' pinpoint-agent/lib/log4j.xml
 

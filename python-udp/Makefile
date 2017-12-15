@@ -1,6 +1,9 @@
 # test nginx for udp stream
 # below is example for usage
 
+run:
+	./udpThriftserver.py 29993
+
 server:
 	./server.py 54321
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# UDP Echo Server -  udpserver.py
-# code by www.cppblog.com/jerryma
+# attackInfo Server - receive and print
+# author Jiaqi Feng
 import socket, traceback, sys, struct
 
 import struct
@@ -58,10 +58,10 @@ while 1:
         header = PinpointHeader(message[:4])
         print "get header sig=%#x, version=%#x, type=%d" % (header.signature, header.version, header.type)
         transport.read(4) # jump over header, see HeaderTBaseSerializer
-        att = TAttackInfo()
-        att.read(prot)
+        attackInfo = TAttackInfo()
+        attackInfo.read(prot)
         #s.sendto(message, address)
-        print(att)
+        print(attackInfo)
     except (KeyboardInterrupt, SystemExit):
         raise
     except:
