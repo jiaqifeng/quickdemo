@@ -28,4 +28,14 @@
         <url-pattern>/topic</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>start</servlet-name>
+        <servlet-class>com.jack.pinpoint.rabbitmq.StartConsumer</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>start</servlet-name>
+        <url-pattern>/start</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -12,6 +12,9 @@ runa: mvnrebuild debuglog
 curl:
 	curl http://localhost:$(PORT)/rabbitmq-producer/rabbitmq
 
+consumer:
+	curl http://localhost:$(PORT)/rabbitmq-producer/start
+
 # no exchange should be specified, for it sould match the consumer side
 curltopic:
 	curl http://localhost:$(PORT)/rabbitmq-producer/topic?msg=cool
