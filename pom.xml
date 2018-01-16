@@ -16,6 +16,7 @@
         <module>kafkaproducerwebapp</module>
         <module>rabbitmq-consumer</module>
         <module>rabbitmq-producer</module>
+        <module>rabbitmq-consumer-springboot</module>
         <module>activemqconsumer</module>
         <module>activemqproducer</module>
         <module>spring-kafka-producer</module>
